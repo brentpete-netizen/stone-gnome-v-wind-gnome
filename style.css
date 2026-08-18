@@ -49,16 +49,16 @@ h1 {
 }
 
 .swatch.stone {
-  background: #8b8378;
+  background: #d98c53;
 }
 
 .swatch.wind {
-  background: #b6e8ff;
+  background: #7fe0b0;
 }
 
 canvas {
-  background: #2c3a2a;
-  border: 4px solid #55482f;
+  background: #f2e7d3;
+  border: 4px solid #1f1e2e;
   image-rendering: pixelated;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
 }

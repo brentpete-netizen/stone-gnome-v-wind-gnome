@@ -1,0 +1,631 @@
+{
+  "_note": "Tile coordinates. Origin top-left. col 0-19, row 0-11. Ranges inclusive. Rows 10-11 are the standard floor band unless a level says otherwise.",
+  "levels": [
+    {
+      "id": 2,
+      "name": "The Cracked Vault",
+      "introduces": [
+        "breakableWall",
+        "holdSwitch"
+      ],
+      "returns": [
+        "plate",
+        "pushBlock"
+      ],
+      "floor": [
+        {
+          "cols": [
+            0,
+            19
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "type": "start",
+          "who": "stone",
+          "col": 1,
+          "row": 9
+        },
+        {
+          "type": "start",
+          "who": "wind",
+          "col": 2,
+          "row": 9
+        },
+        {
+          "type": "breakableWall",
+          "col": 6,
+          "rows": [
+            5,
+            9
+          ],
+          "beat": 1
+        },
+        {
+          "type": "holdSwitch",
+          "col": 11,
+          "row": 9,
+          "opens": "gate",
+          "beat": 2
+        },
+        {
+          "type": "gate",
+          "col": 14,
+          "rows": [
+            5,
+            9
+          ],
+          "beat": 3
+        },
+        {
+          "type": "pushBlock",
+          "col": 15,
+          "row": 9
+        },
+        {
+          "type": "plate",
+          "col": 17,
+          "row": 9,
+          "latches": "gate",
+          "beat": 4
+        },
+        {
+          "type": "exit",
+          "cols": [
+            18,
+            19
+          ],
+          "rows": [
+            8,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Updraft Shaft",
+      "introduces": [
+        "updraft",
+        "glideToLedge"
+      ],
+      "returns": [
+        "water",
+        "lever"
+      ],
+      "floor": [
+        {
+          "cols": [
+            0,
+            4
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "cols": [
+            11,
+            14
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "cols": [
+            15,
+            19
+          ],
+          "rows": [
+            8,
+            11
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "type": "start",
+          "who": "stone",
+          "col": 1,
+          "row": 9
+        },
+        {
+          "type": "start",
+          "who": "wind",
+          "col": 2,
+          "row": 9
+        },
+        {
+          "type": "water",
+          "cols": [
+            5,
+            10
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "type": "fanHousing",
+          "cols": [
+            6,
+            7
+          ],
+          "row": 9,
+          "dir": "up"
+        },
+        {
+          "type": "updraft",
+          "cols": [
+            6,
+            7
+          ],
+          "rows": [
+            4,
+            9
+          ],
+          "beat": 1
+        },
+        {
+          "type": "ledge",
+          "cols": [
+            8,
+            12
+          ],
+          "row": 3
+        },
+        {
+          "type": "lever",
+          "col": 10,
+          "row": 2,
+          "spawns": "steppingStones",
+          "beat": 2
+        },
+        {
+          "type": "steppingStones",
+          "cols": [
+            5,
+            7,
+            9
+          ],
+          "row": 9,
+          "initiallyAbsent": true,
+          "beat": 3
+        },
+        {
+          "type": "exit",
+          "cols": [
+            17,
+            18
+          ],
+          "rows": [
+            6,
+            7
+          ],
+          "beat": 4
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Brittle Causeway",
+      "introduces": [
+        "brittleFloor"
+      ],
+      "returns": [
+        "timedPlatform",
+        "lever"
+      ],
+      "floor": [
+        {
+          "cols": [
+            0,
+            4
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "cols": [
+            15,
+            19
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "type": "start",
+          "who": "stone",
+          "col": 1,
+          "row": 9
+        },
+        {
+          "type": "start",
+          "who": "wind",
+          "col": 2,
+          "row": 9
+        },
+        {
+          "type": "void",
+          "cols": [
+            5,
+            14
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "type": "brittleFloor",
+          "cols": [
+            5,
+            14
+          ],
+          "row": 7,
+          "breaksUnder": "stone",
+          "beat": 1
+        },
+        {
+          "type": "brittleFloor",
+          "cols": [
+            3,
+            3
+          ],
+          "row": 9,
+          "note": "teaching slab over a shallow one-tile pit, harmless"
+        },
+        {
+          "type": "lever",
+          "col": 16,
+          "row": 9,
+          "starts": "timedPlatform",
+          "beat": 2
+        },
+        {
+          "type": "timedPlatform",
+          "widthTiles": 3,
+          "row": 10,
+          "travel": [
+            5,
+            12
+          ],
+          "beat": 3
+        },
+        {
+          "type": "exit",
+          "cols": [
+            18,
+            19
+          ],
+          "rows": [
+            8,
+            9
+          ],
+          "beat": 4
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Crosswind Gallery",
+      "introduces": [
+        "gustTraversal",
+        "blockAsWindbreak"
+      ],
+      "returns": [
+        "bridgeLever",
+        "plate"
+      ],
+      "floor": [
+        {
+          "cols": [
+            0,
+            7
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "cols": [
+            12,
+            19
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "type": "start",
+          "who": "stone",
+          "col": 1,
+          "row": 9
+        },
+        {
+          "type": "start",
+          "who": "wind",
+          "col": 2,
+          "row": 9
+        },
+        {
+          "type": "void",
+          "cols": [
+            8,
+            11
+          ],
+          "rows": [
+            10,
+            11
+          ]
+        },
+        {
+          "type": "fanHousing",
+          "col": 6,
+          "row": 9,
+          "dir": "right",
+          "id": "fan1"
+        },
+        {
+          "type": "gust",
+          "cols": [
+            7,
+            11
+          ],
+          "row": 9,
+          "dir": "right",
+          "source": "fan1",
+          "beat": 1
+        },
+        {
+          "type": "lever",
+          "col": 5,
+          "row": 9,
+          "raises": "bridge",
+          "beat": 2
+        },
+        {
+          "type": "bridge",
+          "cols": [
+            8,
+            11
+          ],
+          "row": 10,
+          "initiallyAbsent": true
+        },
+        {
+          "type": "pushBlock",
+          "col": 3,
+          "row": 9,
+          "id": "block1",
+          "plugTarget": {
+            "col": 7,
+            "row": 9
+          },
+          "beat": 3
+        },
+        {
+          "type": "fanHousing",
+          "col": 14,
+          "row": 5,
+          "dir": "right",
+          "id": "fan2"
+        },
+        {
+          "type": "gust",
+          "cols": [
+            15,
+            19
+          ],
+          "row": 5,
+          "dir": "right",
+          "source": "fan2",
+          "beat": 4
+        },
+        {
+          "type": "ledge",
+          "cols": [
+            17,
+            19
+          ],
+          "row": 6
+        },
+        {
+          "type": "pushBlock",
+          "col": 13,
+          "row": 9,
+          "id": "block2"
+        },
+        {
+          "type": "plate",
+          "col": 16,
+          "row": 9,
+          "switchesOff": "fan2"
+        },
+        {
+          "type": "exit",
+          "cols": [
+            18,
+            19
+          ],
+          "rows": [
+            4,
+            5
+          ]
+        }
+      ],
+      "orderingTrap": "Plugging fan1 before Wind has crossed strands Wind on the west side. Intended. Reset must be one keystroke and must name the cause."
+    },
+    {
+      "id": 6,
+      "name": "The Two Doors",
+      "introduces": [],
+      "returns": [
+        "all"
+      ],
+      "floorNote": "This room's floor is row 10 ONLY. Row 11 is the tunnel band.",
+      "floor": [
+        {
+          "cols": [
+            0,
+            8
+          ],
+          "rows": [
+            10,
+            10
+          ]
+        },
+        {
+          "cols": [
+            10,
+            19
+          ],
+          "rows": [
+            10,
+            10
+          ]
+        }
+      ],
+      "elements": [
+        {
+          "type": "start",
+          "who": "wind",
+          "col": 1,
+          "row": 9
+        },
+        {
+          "type": "start",
+          "who": "stone",
+          "col": 14,
+          "row": 9
+        },
+        {
+          "type": "pillar",
+          "col": 9,
+          "rows": [
+            [
+              0,
+              3
+            ],
+            [
+              6,
+              11
+            ]
+          ],
+          "windowRows": [
+            4,
+            5
+          ],
+          "passableBy": "wind"
+        },
+        {
+          "type": "water",
+          "cols": [
+            3,
+            6
+          ],
+          "rows": [
+            10,
+            10
+          ]
+        },
+        {
+          "type": "ledge",
+          "col": 2,
+          "row": 8
+        },
+        {
+          "type": "ledge",
+          "cols": [
+            4,
+            7
+          ],
+          "row": 5
+        },
+        {
+          "type": "exit",
+          "who": "stone",
+          "cols": [
+            0,
+            1
+          ],
+          "rows": [
+            8,
+            9
+          ]
+        },
+        {
+          "type": "breakableWall",
+          "col": 13,
+          "rows": [
+            5,
+            9
+          ],
+          "reveals": "tunnelMouth",
+          "beat": 1
+        },
+        {
+          "type": "tunnel",
+          "cols": [
+            7,
+            13
+          ],
+          "row": 11,
+          "beat": 2
+        },
+        {
+          "type": "shaft",
+          "col": 7,
+          "rows": [
+            10,
+            11
+          ],
+          "note": "OPEN QUESTION: climbable shaft, one-way updraft, or a second cracked wall"
+        },
+        {
+          "type": "brittleFloor",
+          "cols": [
+            14,
+            17
+          ],
+          "row": 7,
+          "breaksUnder": "stone",
+          "beat": 3
+        },
+        {
+          "type": "exit",
+          "who": "wind",
+          "cols": [
+            18,
+            19
+          ],
+          "rows": [
+            8,
+            9
+          ],
+          "beat": 4
+        }
+      ],
+      "winCondition": "Both doors occupied on the same frame. Either gnome leaving cancels. Rooms 1-5 use a single shared exit pad instead; paired doors are room 6 only. Tint each door with its own gnome's colour, not generic gold."
+    }
+  ]
+}

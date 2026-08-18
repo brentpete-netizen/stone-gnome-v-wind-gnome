@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+<link rel="stylesheet" href="_ds/organic-85d3ca47-4f9c-4c87-a835-06869284609f/styles.css" />
+<script src="_ds/organic-85d3ca47-4f9c-4c87-a835-06869284609f/_ds_bundle.js"></script>
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  body { margin: 0; font-family: var(--font-body); color: var(--color-text); }
+  a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--color-accent-600); }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page margin="0.75in">
+
+<div slot="header" style="display:flex;justify-content:space-between;align-items:baseline;padding:0 0 8px;border-bottom:1px solid var(--color-divider);font-family:var(--font-body);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">
+  <span>Gnome Escape</span>
+  <span>Art bible &middot; Draft 1</span>
+</div>
+
+<div slot="footer" style="padding-top:8px;border-top:1px solid var(--color-divider);font-family:var(--font-body);font-size:11px;color:var(--color-neutral-600)">
+  Every value on these pages is final unless marked open. Hand to build as-is.
+</div>
+
+<p style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 var(--space-2)">Art direction &middot; Look and feel</p>
+
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:46px;line-height:1.02;margin:0 0 var(--space-4);max-width:11em">The room is a silhouette. Colour means you can touch it.</h1>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">One rule governs everything else in this document. The ruins are lit from behind: the background is a bright limestone haze, and every piece of foreground geometry is a near-black ink silhouette against it. Nothing in the foreground carries colour except the things a gnome can interact with, the hazards that can kill them, and the gnomes themselves.</p>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-6)">This is not a style choice first. It is a legibility choice. Two players are watching one screen and reading it in a hurry; a room built this way tells them instantly which pixels matter. It also makes the art cheap &mdash; silhouetted stone needs no interior detail, so the budget goes into the eight things that move.</p>
+
+<div style="background:var(--color-accent-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 var(--space-2)">Departure from current art</p>
+  <p style="font-size:14px;line-height:1.55;margin:0">The existing reference is mossy grey stone rendered in full detail, with the gnomes in grey and green. That look has a specific problem: the stone, the moss, the fan and the gnomes all sit in the same mid-value range, so a screenshot reads as texture rather than as a puzzle. This direction keeps the enchanted-ruins setting and throws out the value structure. Stone Gnome becomes warm sandstone, Wind Gnome becomes mint &mdash; the two gnomes now sit at opposite ends of the hue wheel and can never be confused at speed.</p>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">1 &middot; The palette</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Eighteen colours, locked. No sprite, tile or effect may introduce a nineteenth. Every ramp is four steps or two; anything needing more shades is being drawn with too much detail.</p>
+
+<div style="background:#14131f;border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-4);break-inside:avoid">
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8967d;margin:0 0 var(--space-3)">Ink &mdash; all foreground geometry</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2);margin-bottom:var(--space-4)">
+    <div><div style="height:52px;background:#14131f;border:1px solid #45415d;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#14131f<br /><span style="color:#a8967d">void, deepest</span></p></div>
+    <div><div style="height:52px;background:#1f1e2e;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#1f1e2e<br /><span style="color:#a8967d">stone body</span></p></div>
+    <div><div style="height:52px;background:#2e2c42;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#2e2c42<br /><span style="color:#a8967d">top facet</span></p></div>
+    <div><div style="height:52px;background:#45415d;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#45415d<br /><span style="color:#a8967d">moss, detail</span></p></div>
+  </div>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8967d;margin:0 0 var(--space-3)">Haze &mdash; all background</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2);margin-bottom:var(--space-4)">
+    <div><div style="height:52px;background:#f2e7d3;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#f2e7d3<br /><span style="color:#a8967d">light source</span></p></div>
+    <div><div style="height:52px;background:#e2d3ba;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#e2d3ba<br /><span style="color:#a8967d">near wall</span></p></div>
+    <div><div style="height:52px;background:#c9b79b;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#c9b79b<br /><span style="color:#a8967d">far wall</span></p></div>
+    <div><div style="height:52px;background:#a8967d;border-radius:6px"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#a8967d<br /><span style="color:#a8967d">recess</span></p></div>
+  </div>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8967d;margin:0 0 var(--space-3)">Signal &mdash; the only saturated colour on screen</p>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-2)">
+    <div><div style="height:52px;border-radius:6px;background:linear-gradient(to bottom,#8fd9e4 0 40%,#4fb0c6 40% 100%)"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#8fd9e4<br />#4fb0c6<br /><span style="color:#a8967d">water</span></p></div>
+    <div><div style="height:52px;border-radius:6px;background:linear-gradient(to bottom,#efe6ff 0 40%,#cdbcff 40% 100%)"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#efe6ff<br />#cdbcff<br /><span style="color:#a8967d">gust</span></p></div>
+    <div><div style="height:52px;border-radius:6px;background:linear-gradient(to bottom,#ffe6a3 0 40%,#f0b64e 40% 100%)"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#ffe6a3<br />#f0b64e<br /><span style="color:#a8967d">interactive</span></p></div>
+    <div><div style="height:52px;border-radius:6px;background:linear-gradient(to bottom,#f5c99b 0 40%,#d98c53 40% 100%)"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#f5c99b<br />#d98c53<br /><span style="color:#a8967d">Stone Gnome</span></p></div>
+    <div><div style="height:52px;border-radius:6px;background:linear-gradient(to bottom,#dffff0 0 40%,#7fe0b0 40% 100%)"></div><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#e2d3ba;margin:6px 0 0">#dffff0<br />#7fe0b0<br /><span style="color:#a8967d">Wind Gnome</span></p></div>
+  </div>
+</div>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">Rules</h3>
+<ul style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-8);padding-left:1.4em">
+  <li>Foreground geometry uses ink only. If a wall needs to read as different material, change its <em>silhouette</em>, not its colour.</li>
+  <li>Gold means a gnome can act on it: levers, plates, gates, blocks in their pushable state, exits. Nothing decorative is ever gold.</li>
+  <li>Cyan means water and only water. Violet means moving air and only moving air.</li>
+  <li>The two gnome pairs are reserved. No tile, particle or UI element may use them.</li>
+  <li>Haze steps may shift hue per room (see section 6). Ink and signal colours never shift.</li>
+</ul>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">2 &middot; Resolution and grid</h2>
+
+<table class="table" style="width:100%;font-size:13px;margin:0 0 var(--space-4)">
+  <tbody>
+    <tr><td style="width:38%"><b>Tile</b></td><td>24 &times; 24 px</td></tr>
+    <tr><td><b>Room</b></td><td>20 &times; 12 tiles &mdash; every level, no exceptions</td></tr>
+    <tr><td><b>Internal buffer</b></td><td>480 &times; 288 px</td></tr>
+    <tr><td><b>Presentation</b></td><td>Integer scale only: 2&times; &rarr; 960 &times; 576, 3&times; &rarr; 1440 &times; 864. Never fractional.</td></tr>
+    <tr><td><b>Canvas change</b></td><td>Current canvas is 960 &times; 560. Move it to 960 &times; 576 so 2&times; lands exact.</td></tr>
+    <tr><td><b>Stone Gnome</b></td><td>Sprite 20 &times; 26 in a 32 &times; 32 frame &middot; hitbox 16 &times; 22</td></tr>
+    <tr><td><b>Wind Gnome</b></td><td>Sprite 18 &times; 26 in a 32 &times; 32 frame &middot; hitbox 14 &times; 22</td></tr>
+    <tr><td><b>Pushable block</b></td><td>Exactly one tile, 24 &times; 24, so grid alignment is provable</td></tr>
+    <tr><td><b>Sub-tile geometry</b></td><td>Allowed at 12 px (half-tile) only: ledges, plates, bridge decks</td></tr>
+  </tbody>
+</table>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="display:flex;gap:var(--space-6);align-items:flex-end;background:#14131f;border-radius:var(--radius-md);padding:var(--space-4)">
+    <div>
+      <div style="position:relative;width:128px;height:128px;background:#e2d3ba;border-radius:4px">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(20,19,31,.25) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(20,19,31,.25) 0 1px,transparent 1px 32px)"></div>
+        <div style="position:absolute;left:24px;bottom:0;width:80px;height:104px;background:#d98c53;border:2px solid #f5c99b;box-sizing:border-box"></div>
+        <div style="position:absolute;left:40px;bottom:0;width:48px;height:88px;background:rgba(20,19,31,.55);border:1px dashed #ffe6a3;box-sizing:border-box"></div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#a8967d;margin:8px 0 0;line-height:1.5">32&times;32 frame at 4&times;<br />solid: 20&times;26 sprite<br />dashed: 16&times;22 hitbox</p>
+    </div>
+    <div>
+      <div style="display:grid;grid-template-columns:repeat(4,32px);grid-template-rows:repeat(3,32px);gap:2px">
+        <div style="background:#2e2c42;border-radius:6px 0 0 0"></div>
+        <div style="background:#2e2c42"></div>
+        <div style="background:#2e2c42"></div>
+        <div style="background:#2e2c42;border-radius:0 6px 0 0"></div>
+        <div style="background:#1f1e2e"></div>
+        <div style="background:#1f1e2e"></div>
+        <div style="background:#1f1e2e"></div>
+        <div style="background:#1f1e2e"></div>
+        <div style="background:#1f1e2e"></div>
+        <div style="background:#14131f"></div>
+        <div style="background:#14131f"></div>
+        <div style="background:#1f1e2e"></div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#a8967d;margin:8px 0 0;line-height:1.5">Autotile: exposed top facet in<br />#2e2c42, body #1f1e2e,<br />enclosed interior #14131f</p>
+    </div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">Sprite frames are square and larger than the hitbox; art overhangs, collision does not.</figcaption>
+</figure>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">3 &middot; A room, built to the rule</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">The mockup below is one 480&times;288 buffer at actual size. It is deliberately plain: this is what a room looks like before any decoration, and it should already be readable.</p>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="position:relative;width:480px;max-width:100%;height:288px;overflow:hidden;border-radius:var(--radius-sm);background:{{ hazeFar }}">
+    <div style="position:absolute;left:0;top:0;width:100%;height:150px;background:{{ hazeLight }}"></div>
+    <div style="position:absolute;left:0;top:150px;width:100%;height:60px;background:{{ hazeNear }}"></div>
+    <div style="position:absolute;left:0;top:210px;width:100%;height:78px;background:{{ hazeRecess }}"></div>
+    <div style="position:absolute;left:0;top:240px;width:144px;height:48px;background:#1f1e2e;border-top:4px solid #2e2c42;box-sizing:border-box"></div>
+    <div style="position:absolute;left:144px;top:240px;width:96px;height:48px;background:#4fb0c6;border-top:3px solid #8fd9e4;box-sizing:border-box"></div>
+    <div style="position:absolute;left:240px;top:240px;width:96px;height:48px;background:#1f1e2e;border-top:4px solid #2e2c42;box-sizing:border-box"></div>
+    <div style="position:absolute;left:336px;top:240px;width:48px;height:48px;background:#14131f"></div>
+    <div style="position:absolute;left:384px;top:240px;width:96px;height:48px;background:#1f1e2e;border-top:4px solid #2e2c42;box-sizing:border-box"></div>
+    <div style="position:absolute;left:96px;top:120px;width:120px;height:12px;background:#1f1e2e;border-top:4px solid #2e2c42;box-sizing:border-box"></div>
+    <div style="position:absolute;left:288px;top:168px;width:96px;height:12px;background:#1f1e2e;border-top:4px solid #2e2c42;box-sizing:border-box"></div>
+    <div style="position:absolute;left:336px;top:180px;width:48px;height:60px;background:linear-gradient(to top,rgba(205,188,255,.75),rgba(205,188,255,0))"></div>
+    <div style="position:absolute;left:348px;top:228px;width:24px;height:12px;background:#45415d;border-top:2px solid #cdbcff;box-sizing:border-box"></div>
+    <div style="position:absolute;left:264px;top:216px;width:12px;height:24px;background:#f0b64e;border-top:4px solid #ffe6a3;box-sizing:border-box"></div>
+    <div style="position:absolute;left:408px;top:216px;width:24px;height:24px;background:#1f1e2e;border:2px solid #f0b64e;box-sizing:border-box"></div>
+    <div style="position:absolute;left:444px;top:192px;width:24px;height:48px;background:#ffe6a3;box-shadow:0 0 20px rgba(255,230,163,.6)"></div>
+    <div style="position:absolute;left:24px;top:214px;width:16px;height:26px;background:#d98c53;border-top:4px solid #f5c99b;box-sizing:border-box"></div>
+    <div style="position:absolute;left:52px;top:214px;width:14px;height:26px;background:#7fe0b0;border-top:4px solid #dffff0;box-sizing:border-box"></div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">480&times;288, 1&times;. Switch the room in Tweaks to see the haze rotation from section 6.</figcaption>
+</figure>
+
+<p style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-8)">Note what carries no colour: the floors, the ledges, the void, the fan housing. Note what does: the pool, the updraft, the lever, the block's outline, the door, and the two gnomes. A player scanning this screen for three seconds knows every move available to them.</p>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">4 &middot; What each element must read like</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Shape carries the identity, colour carries the category, motion carries the state. All three, every time &mdash; an element that only differs by colour fails for colourblind players and fails on a bad monitor.</p>
+
+<table class="table" style="width:100%;font-size:12.5px;margin:0 0 var(--space-6)">
+  <thead>
+    <tr><th style="text-align:left">Element</th><th style="text-align:left">Silhouette</th><th style="text-align:left">Colour</th><th style="text-align:left">Motion</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Solid floor</td><td>Flat top, ink body, one-tile modules</td><td>Ink only</td><td>None &mdash; ever</td></tr>
+    <tr><td>Water</td><td>Fills its basin flat to the brim</td><td>Cyan pair</td><td>Two-frame surface ripple, 6&nbsp;fps</td></tr>
+    <tr><td>Void</td><td>No top facet at all &mdash; the tell</td><td>Deepest ink</td><td>None</td></tr>
+    <tr><td>Brittle floor</td><td>Top facet broken into 8&nbsp;px teeth</td><td>Ink, gold hairline on the teeth</td><td>Shivers 1&nbsp;px when stood on</td></tr>
+    <tr><td>Cracked wall</td><td>Diagonal fracture line splits the silhouette</td><td>Ink, gold fracture</td><td>Dust motes fall continuously</td></tr>
+    <tr><td>Gust / updraft</td><td>Open-ended band, never boxed</td><td>Violet pair, alpha gradient</td><td>Particles travel the full length</td></tr>
+    <tr><td>Fan housing</td><td>Blade circle in silhouette</td><td>Ink only</td><td>Blades spin when active, stop when off</td></tr>
+    <tr><td>Lever</td><td>Post and ball, taller than it is wide</td><td>Gold pair</td><td>Ball swings through 40&deg; on throw</td></tr>
+    <tr><td>Pressure plate</td><td>Half-tile pad, recessed</td><td>Gold pair</td><td>Drops 2&nbsp;px and holds when pressed</td></tr>
+    <tr><td>Pushable block</td><td>One tile, gold outline, ink fill</td><td>Ink + gold edge</td><td>Slides in 4&nbsp;px steps, never smoothly</td></tr>
+    <tr><td>Gate</td><td>Vertical bars, floor to ceiling</td><td>Ink, gold caps</td><td>Retracts upward over 12 frames</td></tr>
+    <tr><td>Timed platform</td><td>One tile deep, gold underside</td><td>Ink + gold edge</td><td>Constant travel; gold underside pulses on turnaround</td></tr>
+    <tr><td>Exit door</td><td>Arch, full brightest haze fill</td><td>Gold light</td><td>Slow breathing glow; steady when occupied</td></tr>
+  </tbody>
+</table>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">5 &middot; Lighting</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Light comes from behind and above the room, off-screen. There is no light source in the scene, so nothing casts a directional shadow and no tile needs a lit side and a dark side. This is what makes the tileset small.</p>
+
+<ul style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4);padding-left:1.4em">
+  <li><b>Three haze planes.</b> Brightest at the top of the frame, mid at eye level, recess at the bottom. Hard horizontal bands, no gradient dithering &mdash; the bands are structure, not atmosphere.</li>
+  <li><b>Parallax.</b> The haze planes do not scroll; rooms are single-screen. The only depth cue is value, and that is enough.</li>
+  <li><b>Rim light.</b> Every foreground silhouette gets a 4&nbsp;px top facet one ink step lighter. That single edge is the whole lighting model.</li>
+  <li><b>Contact shadow.</b> Gnomes and blocks get a 2&nbsp;px ink ellipse under them at 40% alpha. Nothing else does.</li>
+  <li><b>Signal glow.</b> Gold and violet elements bleed one pixel of their light step into the surrounding haze. Cyan does not &mdash; water absorbs.</li>
+</ul>
+
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>The trap to avoid.</b> The temptation with a backlit scene is to add interior detail to the silhouettes so they look less flat &mdash; brick courses, moss, cracks in mid ink. Every step in that direction costs legibility and gains nothing, because the player is not looking at the walls. Detail belongs in the haze planes, where it cannot compete with the signal colours.</p>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">6 &middot; Six rooms, one tileset</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">The rooms differentiate by rotating the four haze steps around the hue wheel and leaving everything else alone. One tileset, one sprite set, six distinct rooms. Room 6 is the only inversion &mdash; the haze goes dark, the silhouettes read as lighter than their background for the first time, and the game says out loud that this is the last one.</p>
+
+<table class="table" style="width:100%;font-size:13px;margin:0 0 var(--space-4)">
+  <thead>
+    <tr><th style="text-align:left">Room</th><th style="text-align:left">Haze</th><th style="text-align:left">Reads as</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1 &middot; Overgrown Ruins</td><td>Warm bone &mdash; the base four steps</td><td>Late afternoon, ground level</td></tr>
+    <tr><td>2 &middot; The Cracked Vault</td><td>Hue &minus;20&deg;, chroma &minus;30%</td><td>Sealed, airless, colder</td></tr>
+    <tr><td>3 &middot; Updraft Shaft</td><td>Hue toward aqua, lightness +6%</td><td>Open to the sky above</td></tr>
+    <tr><td>4 &middot; Brittle Causeway</td><td>Hue toward dusk rose</td><td>High up, thinner air</td></tr>
+    <tr><td>5 &middot; Crosswind Gallery</td><td>Hue toward gold, lightness +10%</td><td>Bright, exposed, windswept</td></tr>
+    <tr><td>6 &middot; The Two Doors</td><td>Inverted &mdash; deep indigo haze, ink lifted two steps</td><td>Night, interior, final</td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-8)">Implement as a per-room palette swap on the haze channel only, not as six sets of tiles. In practice that is four hex values per room in the level data.</p>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">7 &middot; The moment it happens</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Co-op needs loud feedback. Two players are not looking at the same part of the screen, so every state change has to announce itself where it happens <em>and</em> be audible to someone looking elsewhere.</p>
+
+<table class="table" style="width:100%;font-size:12.5px;margin:0 0 var(--space-4)">
+  <thead>
+    <tr><th style="text-align:left">Event</th><th style="text-align:left">On screen</th><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><th style="text-align:left">Sound</th></sc-if></tr>
+  </thead>
+  <tbody>
+    <tr><td>Lever thrown</td><td>Ball swings, 3-frame gold ring at the post, connected mechanism flashes its light step once</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Wooden clack, then a low stone grind for whatever moved</td></sc-if></tr>
+    <tr><td>Plate pressed</td><td>Plate drops 2&nbsp;px, gold flood spreads 8&nbsp;px along the floor either side</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Soft thunk with a rising tail &mdash; it must sound like a latch, not a footstep</td></sc-if></tr>
+    <tr><td>Block pushed</td><td>4&nbsp;px stepped slide, dust puff at the base each step</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Grit scrape, pitch tied to distance travelled</td></sc-if></tr>
+    <tr><td>Wall broken</td><td>Silhouette shatters into 6 ink chunks that fall and fade over 20 frames</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Dry crack plus a rubble tail. The single most satisfying sound in the game.</td></sc-if></tr>
+    <tr><td>Gust entered</td><td>Particles bend around the gnome; Wind's sprite tilts 8&deg; downwind</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Airy hiss that gains a whistle while a body is inside it</td></sc-if></tr>
+    <tr><td>Stone drowns</td><td>Cyan splash ring, sprite sinks 12&nbsp;px over 8 frames, screen dims 15% for 6 frames</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Heavy plunge, muffled tail. No sting, no jingle &mdash; the room should feel quiet after.</td></sc-if></tr>
+    <tr><td>Brittle floor gives</td><td>Slab tips before it falls; 4 frames of warning where a jump still saves you</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Sharp splinter crack on the tip, not on the fall</td></sc-if></tr>
+    <tr><td>Reset</td><td>Wipe from both screen edges inward over 10 frames. Never a fade &mdash; a fade reads as a bug.</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Short reversed whoosh</td></sc-if></tr>
+    <tr><td>One gnome in a door</td><td>Door glow goes steady, a gold pip lights on that gnome's HUD tag</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>Single held note, one of two in a chord</td></sc-if></tr>
+    <tr><td>Both in &mdash; solved</td><td>The two notes resolve, gold floods outward from both doors, silhouettes lift toward the haze for 30 frames</td><sc-if value="{{ showAudio }}" hint-placeholder-val="{{ true }}"><td>The chord completes. This is the game's one moment of real payoff; spend on it.</td></sc-if></tr>
+  </tbody>
+</table>
+
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>The two-note rule.</b> Each exit door owns one note of a two-note chord. A player standing in their door alone hears their note held, unresolved, which is the clearest possible instruction to the other player without a line of text. Everything else in the audio design can be cheap; this cannot.</p>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">8 &middot; The shell</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Four screens, all of them in the same 480&times;288 buffer and the same palette as the game. The shell never switches to a different visual language &mdash; ink silhouette, haze ground, gold for anything you can select.</p>
+
+<figure style="margin:0 0 var(--space-6);break-inside:avoid">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+    <div>
+      <div style="position:relative;width:100%;height:180px;overflow:hidden;border-radius:var(--radius-sm);background:#c9b79b">
+        <div style="position:absolute;left:0;top:0;width:100%;height:96px;background:#f2e7d3"></div>
+        <div style="position:absolute;left:0;bottom:0;width:100%;height:28px;background:#1f1e2e;border-top:3px solid #2e2c42;box-sizing:border-box"></div>
+        <div style="position:absolute;left:30px;bottom:28px;width:44px;height:70px;background:#1f1e2e;border-radius:3px 3px 0 0"></div>
+        <div style="position:absolute;right:24px;bottom:28px;width:60px;height:104px;background:#1f1e2e;border-radius:4px 4px 0 0"></div>
+        <div style="position:absolute;left:26px;top:34px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:19px;letter-spacing:0.02em;color:#1f1e2e;line-height:1.1">GNOME<br />ESCAPE</div>
+        <div style="position:absolute;left:26px;bottom:44px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;color:#f0b64e">&#9656; PRESS START</div>
+        <div style="position:absolute;left:112px;bottom:28px;width:11px;height:18px;background:#d98c53;border-top:3px solid #f5c99b;box-sizing:border-box"></div>
+        <div style="position:absolute;left:130px;bottom:28px;width:10px;height:18px;background:#7fe0b0;border-top:3px solid #dffff0;box-sizing:border-box"></div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-neutral-600);margin:6px 0 0">Title &mdash; wordmark left, gnomes small and in-world, no menu until Start</p>
+    </div>
+    <div>
+      <div style="position:relative;width:100%;height:180px;overflow:hidden;border-radius:var(--radius-sm);background:#a8967d">
+        <div style="position:absolute;left:0;top:0;width:100%;height:70px;background:#c9b79b"></div>
+        <div style="position:absolute;left:50%;top:0;width:34px;height:180px;margin-left:-17px;background:#1f1e2e"></div>
+        <div style="position:absolute;left:50%;top:16px;width:88px;height:12px;margin-left:-44px;background:#2e2c42;border-radius:2px"></div>
+        <div style="position:absolute;left:50%;top:48px;width:88px;height:12px;margin-left:-44px;background:#2e2c42;border-radius:2px"></div>
+        <div style="position:absolute;left:50%;top:80px;width:88px;height:12px;margin-left:-44px;background:#f0b64e;border-radius:2px;box-shadow:0 0 12px rgba(240,182,78,.7)"></div>
+        <div style="position:absolute;left:50%;top:112px;width:88px;height:12px;margin-left:-44px;background:#45415d;border-radius:2px"></div>
+        <div style="position:absolute;left:50%;top:144px;width:88px;height:12px;margin-left:-44px;background:#45415d;border-radius:2px"></div>
+        <div style="position:absolute;left:8px;top:8px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#1f1e2e">THE TOWER</div>
+        <div style="position:absolute;right:10px;top:78px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#ffe6a3">03 &middot; UPDRAFT SHAFT</div>
+        <div style="position:absolute;left:12px;top:14px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#f2e7d3"></div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-neutral-600);margin:6px 0 0">Level select &mdash; a tower climbed bottom to top; gold is where you are, ink is cleared, violet-ink is locked</p>
+    </div>
+    <div>
+      <div style="position:relative;width:100%;height:180px;overflow:hidden;border-radius:var(--radius-sm);background:#c9b79b">
+        <div style="position:absolute;inset:0;background:rgba(20,19,31,.72)"></div>
+        <div style="position:absolute;left:22px;top:34px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;letter-spacing:0.06em;color:#f2e7d3">PAUSED</div>
+        <div style="position:absolute;left:22px;top:66px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#f0b64e">&#9656; RESUME</div>
+        <div style="position:absolute;left:22px;top:88px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#c9b79b">RESTART ROOM &middot; R</div>
+        <div style="position:absolute;left:22px;top:110px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#c9b79b">THE TOWER</div>
+        <div style="position:absolute;right:20px;bottom:20px;width:11px;height:18px;background:#d98c53;border-top:3px solid #f5c99b;box-sizing:border-box"></div>
+        <div style="position:absolute;right:40px;bottom:20px;width:10px;height:18px;background:#7fe0b0;border-top:3px solid #dffff0;box-sizing:border-box"></div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-neutral-600);margin:6px 0 0">Pause &mdash; the room stays visible behind an ink veil; both gnomes frozen mid-pose</p>
+    </div>
+    <div>
+      <div style="position:relative;width:100%;height:180px;overflow:hidden;border-radius:var(--radius-sm);background:#f2e7d3">
+        <div style="position:absolute;left:0;bottom:0;width:100%;height:34px;background:#1f1e2e;border-top:3px solid #2e2c42;box-sizing:border-box"></div>
+        <div style="position:absolute;left:0;top:0;width:100%;height:100%;background:radial-gradient(circle at 50% 62%,rgba(255,230,163,.55),transparent 62%)"></div>
+        <div style="position:absolute;left:50%;top:30px;margin-left:-62px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:0.06em;color:#1f1e2e">ROOM CLEARED</div>
+        <div style="position:absolute;left:50%;top:58px;margin-left:-52px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#45415d">03 &middot; UPDRAFT SHAFT</div>
+        <div style="position:absolute;left:50%;top:82px;margin-left:-46px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#45415d">TIME 2:14 &middot; RESETS 3</div>
+        <div style="position:absolute;left:50%;bottom:48px;margin-left:-34px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#b2622d">&#9656; NEXT ROOM</div>
+        <div style="position:absolute;left:50%;bottom:34px;margin-left:-24px;width:11px;height:18px;background:#d98c53;border-top:3px solid #f5c99b;box-sizing:border-box"></div>
+        <div style="position:absolute;left:50%;bottom:34px;margin-left:2px;width:10px;height:18px;background:#7fe0b0;border-top:3px solid #dffff0;box-sizing:border-box"></div>
+      </div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--color-neutral-600);margin:6px 0 0">Cleared &mdash; the only screen that is centred, and the only one where haze floods the frame</p>
+    </div>
+  </div>
+</figure>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">HUD</h3>
+<p style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-3)">There is almost none, and that is the point. Two tags in the top corners, 20&nbsp;px tall, each carrying its gnome's colour swatch, its control scheme and a door pip that lights when that gnome is in position. Nothing else &mdash; no timer, no counter, no ability icons. If a mechanic needs a HUD element to be understood, the mechanic needs redesigning.</p>
+
+<figure style="margin:0 0 var(--space-8);break-inside:avoid">
+  <div style="position:relative;width:100%;height:64px;overflow:hidden;border-radius:var(--radius-sm);background:#e2d3ba">
+    <div style="position:absolute;left:10px;top:10px;display:flex;align-items:center;gap:6px;background:rgba(31,30,46,.9);border-radius:3px;padding:4px 8px">
+      <span style="width:8px;height:12px;background:#d98c53;display:block"></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#f2e7d3">STONE &middot; WASD</span>
+      <span style="width:6px;height:6px;border-radius:999px;background:#f0b64e;display:block"></span>
+    </div>
+    <div style="position:absolute;right:10px;top:10px;display:flex;align-items:center;gap:6px;background:rgba(31,30,46,.9);border-radius:3px;padding:4px 8px">
+      <span style="width:8px;height:12px;background:#7fe0b0;display:block"></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;color:#f2e7d3">WIND &middot; ARROWS</span>
+      <span style="width:6px;height:6px;border-radius:999px;background:#45415d;display:block"></span>
+    </div>
+    <div style="position:absolute;left:0;bottom:0;width:100%;height:14px;background:#1f1e2e"></div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">Stone's door pip is lit; Wind's is not. That is the entire co-op status display.</figcaption>
+</figure>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-3);break-before:page">9 &middot; Asset list</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Everything the six rooms need. If something is not on this list, the rooms do not need it.</p>
+
+<table class="table" style="width:100%;font-size:13px;margin:0 0 var(--space-6)">
+  <thead>
+    <tr><th style="text-align:left">Asset</th><th style="text-align:left">Frames</th><th style="text-align:left">Size</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Stone Gnome &mdash; idle, walk, push, break, sink</td><td>2 / 6 / 4 / 5 / 8</td><td>32 &times; 32</td></tr>
+    <tr><td>Wind Gnome &mdash; idle, walk, jump, glide, blown</td><td>2 / 6 / 3 / 2 / 4</td><td>32 &times; 32</td></tr>
+    <tr><td>Stone tileset &mdash; autotile, 16 cases</td><td>1 each</td><td>24 &times; 24</td></tr>
+    <tr><td>Brittle floor &mdash; whole, shivering, tipping, gone</td><td>1 / 2 / 4 / 1</td><td>24 &times; 24</td></tr>
+    <tr><td>Cracked wall &mdash; whole, shatter</td><td>1 / 6</td><td>24 &times; 48</td></tr>
+    <tr><td>Water &mdash; surface loop, splash</td><td>2 / 5</td><td>24 &times; 24 / 32 &times; 32</td></tr>
+    <tr><td>Fan housing &mdash; spin loop, stopped</td><td>4 / 1</td><td>48 &times; 48</td></tr>
+    <tr><td>Gust particle</td><td>3</td><td>4 &times; 12</td></tr>
+    <tr><td>Lever &mdash; off, throwing, on</td><td>1 / 3 / 1</td><td>24 &times; 24</td></tr>
+    <tr><td>Plate &mdash; up, down</td><td>1 / 1</td><td>24 &times; 12</td></tr>
+    <tr><td>Pushable block</td><td>1</td><td>24 &times; 24</td></tr>
+    <tr><td>Gate &mdash; closed, retracting, open</td><td>1 / 4 / 1</td><td>24 &times; 120</td></tr>
+    <tr><td>Timed platform</td><td>1</td><td>72 &times; 24</td></tr>
+    <tr><td>Exit door &mdash; idle glow, occupied, opening</td><td>4 / 1 / 6</td><td>24 &times; 48</td></tr>
+    <tr><td>Dust puff, rubble chunk, splash ring</td><td>4 / 3 / 5</td><td>16 &times; 16</td></tr>
+    <tr><td>Wordmark</td><td>1</td><td>Bitmap, 5 &times; 7 base glyph</td></tr>
+    <tr><td>UI font</td><td>Full ASCII</td><td>5 &times; 7 bitmap, 1&nbsp;px spacing</td></tr>
+  </tbody>
+</table>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:28px;margin:0 0 var(--space-3)">Open</h2>
+<ul style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-6);padding-left:1.4em">
+  <li>Room 6's inversion is the boldest call here. It costs one extra palette state and it is the only place the rule bends. Worth a look before it gets built.</li>
+  <li>The 5&times;7 bitmap font is a real build cost. If it needs to go, the fallback is a monospace web font at exactly 8 or 16&nbsp;px &mdash; never scaled between.</li>
+  <li>Canvas moves from 960&times;560 to 960&times;576. Small change, but it touches every hard-coded Y value in the current level.</li>
+  <li>No sprite art exists in this direction yet. What is here is a spec and a set of diagrams, not finished pixels &mdash; the palette, sizes and read rules are the deliverable.</li>
+</ul>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;room&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1 · Overgrown Ruins&quot;,&quot;2 · Cracked Vault&quot;,&quot;3 · Updraft Shaft&quot;,&quot;4 · Brittle Causeway&quot;,&quot;5 · Crosswind Gallery&quot;,&quot;6 · The Two Doors&quot;],&quot;default&quot;:&quot;1 · Overgrown Ruins&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Mockup&quot;},&quot;showAudio&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Document&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const hazes = {
+      "1 · Overgrown Ruins": ["#f2e7d3", "#e2d3ba", "#c9b79b", "#a8967d"],
+      "2 · Cracked Vault": ["#eae4d8", "#d5cfc3", "#b8b2a6", "#96918a"],
+      "3 · Updraft Shaft": ["#e6f0e8", "#cfe0dc", "#b0c6c4", "#8fa5a6"],
+      "4 · Brittle Causeway": ["#f0e2de", "#ddc7c6", "#c0a7aa", "#9c868c"],
+      "5 · Crosswind Gallery": ["#fbeecb", "#efdaa8", "#d7bd85", "#b39c69"],
+      "6 · The Two Doors": ["#3a3b57", "#2c2d44", "#212236", "#181927"],
+    };
+    const room = this.props.room ?? "1 · Overgrown Ruins";
+    const h = hazes[room] || hazes["1 · Overgrown Ruins"];
+    return {
+      hazeLight: h[0],
+      hazeNear: h[1],
+      hazeFar: h[2],
+      hazeRecess: h[3],
+      showAudio: this.props.showAudio ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>

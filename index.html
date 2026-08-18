@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Gnome Escape — Level 1</title>
+<title>Gnome Escape</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Gnome Escape</h1>
-  <p class="subtitle">Level 1 — The Overgrown Ruins</p>
+  <p class="subtitle">A two-player co-op escape, six rooms</p>
 
   <div class="legend">
     <div class="legend-item"><span class="swatch stone"></span> Stone Gnome — <b>W</b> jump, <b>A</b>/<b>D</b> move. Heavy, drowns in water.</div>
-    <div class="legend-item"><span class="swatch wind"></span> Wind Gnome — <b>&#8593;</b> jump (double), <b>&#8592;</b>/<b>&#8594;</b> move. Light, blown by gusts.</div>
+    <div class="legend-item"><span class="swatch wind"></span> Wind Gnome — <b>&#8593;</b> jump (double), <b>&#8592;</b>/<b>&#8594;</b> move, hold to glide.</div>
   </div>
 
-  <canvas id="game" width="960" height="560"></canvas>
+  <canvas id="game" width="960" height="576"></canvas>
 
-  <p class="hint">Get both gnomes onto the golden exit pad together. Stone Gnome can push the stone block onto the pressure plate to open the gate. Press <b>R</b> to reset the level.</p>
+  <p class="hint">Enter to start / select a room · Esc to pause · R to restart the room</p>
 
+  <script src="sprites-data.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

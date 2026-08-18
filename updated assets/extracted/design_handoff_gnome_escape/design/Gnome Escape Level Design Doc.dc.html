@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+<link rel="stylesheet" href="_ds/organic-85d3ca47-4f9c-4c87-a835-06869284609f/styles.css" />
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  body { margin: 0; font-family: var(--font-body); color: var(--color-text); }
+  a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--color-accent-600); }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page margin="0.75in">
+
+<div slot="header" style="display:flex;justify-content:space-between;align-items:baseline;padding:0 0 8px;border-bottom:1px solid var(--color-divider);font-family:var(--font-body);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">
+  <span>Gnome Escape</span>
+  <span>Levels 2&ndash;6 &middot; Design Doc</span>
+</div>
+
+<div slot="footer" style="padding-top:8px;border-top:1px solid var(--color-divider);font-family:var(--font-body);font-size:11px;color:var(--color-neutral-600)">
+  Single-screen co-op puzzle-platformer &middot; 960&times;560 canvas &middot; internal draft
+</div>
+
+<p style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 var(--space-2)">Level design &middot; Draft 1</p>
+
+<h1 style="font-family:var(--font-heading);font-weight:400;font-size:46px;line-height:1.02;margin:0 0 var(--space-4);max-width:9em">Five rooms after the ruins</h1>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Levels 2 through 6 for <em>Gnome Escape</em>, each a single enclosed screen in the same 960&times;560 frame as Level 1. Every room adds two mechanics to the vocabulary and requires both gnomes to leave together. Blueprints below are schematic: they fix the beats, the ordering and the failure states, not the final tile art.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin:0 0 var(--space-8)">
+  <div style="background:var(--color-surface);border-radius:var(--radius-md);padding:var(--space-4)">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-700);margin:0 0 var(--space-2)">Stone Gnome &middot; WASD</p>
+    <p style="font-size:14px;line-height:1.5;margin:0">Heavy. Pushes blocks, breaks cracked walls, holds pressure plates, ignores spikes. Sinks in water, shoved by gusts, falls through brittle floors.</p>
+  </div>
+  <div style="background:var(--color-surface);border-radius:var(--radius-md);padding:var(--space-4)">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-2-700);margin:0 0 var(--space-2)">Wind Gnome &middot; Arrows</p>
+    <p style="font-size:14px;line-height:1.5;margin:0">Light. Double-jumps, glides, rides updrafts, crosses water and brittle floors. Too light to push blocks or hold plates; carried off course by gusts.</p>
+  </div>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:28px;margin:0 0 var(--space-3)">Introduction order</h2>
+
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">One new idea per gnome per room, then a room that asks for all of it. Nothing appears in a puzzle before it has appeared as a safe, obvious demonstration one room earlier.</p>
+
+<table class="table" style="width:100%;font-size:13px;margin:0 0 var(--space-4)">
+  <thead>
+    <tr>
+      <th style="text-align:left">Room</th>
+      <th style="text-align:left">New</th>
+      <th style="text-align:left">Returns</th>
+      <th style="text-align:left">Co-op pressure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 &middot; Overgrown Ruins</td>
+      <td>Water, lever bridge, timed platform, gust, plate + block</td>
+      <td>&mdash;</td>
+      <td>Low &mdash; parallel paths</td>
+    </tr>
+    <tr>
+      <td>2 &middot; The Cracked Vault</td>
+      <td>Breakable walls, hold-switch</td>
+      <td>Plate + block</td>
+      <td>One holds, one moves</td>
+    </tr>
+    <tr>
+      <td>3 &middot; Updraft Shaft</td>
+      <td>Updraft column, glide-to-ledge</td>
+      <td>Water, lever</td>
+      <td>Wind unlocks Stone's path</td>
+    </tr>
+    <tr>
+      <td>4 &middot; Brittle Causeway</td>
+      <td>Cracked floors</td>
+      <td>Timed platform, lever</td>
+      <td>Separate routes, shared clock</td>
+    </tr>
+    <tr>
+      <td>5 &middot; Crosswind Gallery</td>
+      <td>Gust as traversal, block as windbreak</td>
+      <td>Bridge lever, plate</td>
+      <td>Irreversible ordering</td>
+    </tr>
+    <tr>
+      <td>6 &middot; The Two Doors</td>
+      <td>Nothing &mdash; two exits, one each</td>
+      <td>All of the above</td>
+      <td>Forced swap, simultaneous arrival</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="background:var(--color-accent-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 var(--space-2)">Note on Level 1</p>
+  <p style="font-size:14px;line-height:1.55;margin:0">Level 1 as built teaches five mechanics in one screen. Recommend cutting the timed platform and the plate-and-block sequence out of it and letting the room be water, the lever bridge and the gust only &mdash; the two cut pieces are re-taught with room to breathe in 4 and 2. That also gives the opening room a clean three-beat rhythm instead of five.</p>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:28px;margin:0 0 var(--space-3)">Blueprint key</h2>
+
+<div style="background:#2e2b25;border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-3) var(--space-4)">
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:14px;flex:none;background:#645c50;border-top:5px solid #8fa073;border-radius:3px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Mossed floor</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:14px;flex:none;background:oklch(0.52 0.06 240);border-top:3px solid oklch(0.72 0.07 235);border-radius:3px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Water</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:14px;flex:none;background:#141210;border-radius:3px"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Void / chasm</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:14px;flex:none;background:repeating-linear-gradient(90deg,#645c50 0 9px,transparent 9px 13px);border-top:3px dashed #c0b6a5;border-radius:3px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Brittle floor</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:16px;flex:none;background:#4a4438;border:2px dashed #c0b6a5;border-radius:3px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Cracked wall</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:14px;flex:none;background:#d67f48;border-radius:3px"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Timed platform</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:16px;height:18px;flex:none;background:#f6a06b;border-radius:999px"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Lever / switch</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:6px;flex:none;background:#f6a06b;border-radius:2px"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Pressure plate</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;flex:none;background:#82796a;border:2px solid #a19786;border-radius:3px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Pushable block</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:16px;flex:none;background:linear-gradient(to right,oklch(0.72 0.14 60 / .5),transparent);border:2px dashed #f6a06b;border-radius:3px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Gust / updraft</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:14px;height:20px;flex:none;background:#3d472b;border:2px solid #8fa073;border-radius:2px;box-sizing:border-box"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Gate</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:18px;height:22px;flex:none;background:#f5ead8;border-radius:4px 4px 0 0;box-shadow:0 0 12px rgba(245,234,216,.5)"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Exit</span></div>
+  </div>
+  <div style="display:flex;gap:var(--space-6);margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid rgba(220,211,196,.2)">
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;flex:none;border-radius:999px;background:#dcd3c4;color:#2e2b25;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">S</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Stone start</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:26px;height:26px;flex:none;border-radius:999px;background:#aebf92;color:#272e1b;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">W</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Wind start</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:22px;height:22px;flex:none;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">1</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#dcd3c4">Beat, keyed to walkthrough</span></div>
+  </div>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-2);break-before:page">Level 2 &middot; The Cracked Vault</h2>
+<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0 0 var(--space-4)">
+  <span class="tag tag-accent">New: Breakable walls</span>
+  <span class="tag tag-accent">New: Hold-switch</span>
+  <span class="tag tag-neutral">Returns: Plate + block</span>
+</div>
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">A sealed antechamber. The room's job is to establish that Stone can open geometry and that a switch can need a body left behind on it. It ends by teaching the latch &mdash; a block on a plate holds open what a gnome cannot stay to hold.</p>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="position:relative;width:640px;max-width:100%;height:300px;background:#2e2b25;border:2px solid #474238;border-radius:var(--radius-md);overflow:hidden;box-sizing:border-box">
+    <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px);pointer-events:none"></div></sc-if>
+    <div style="position:absolute;left:0;top:250px;width:190px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:190px;top:110px;width:26px;height:140px;background:#4a4438;border:2px dashed #c0b6a5;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:216px;top:250px;width:200px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:330px;top:222px;width:26px;height:28px;background:#f6a06b;border-radius:999px 999px 3px 3px"></div>
+    <div style="position:absolute;left:430px;top:120px;width:14px;height:130px;background:#3d472b;border:2px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:444px;top:250px;width:196px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:470px;top:210px;width:34px;height:40px;background:#82796a;border:2px solid #a19786;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:512px;top:228px;width:44px;height:2px;border-top:2px dashed #a19786"></div>
+    <div style="position:absolute;left:560px;top:244px;width:44px;height:6px;background:#f6a06b;border-radius:2px"></div>
+    <div style="position:absolute;left:596px;top:200px;width:34px;height:50px;background:#f5ead8;border-radius:5px 5px 0 0;box-shadow:0 0 18px rgba(245,234,216,.45)"></div>
+    <div style="position:absolute;left:20px;top:214px;width:26px;height:26px;border-radius:999px;background:#dcd3c4;color:#2e2b25;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">S</div>
+    <div style="position:absolute;left:54px;top:214px;width:26px;height:26px;border-radius:999px;background:#aebf92;color:#272e1b;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">W</div>
+    <div style="position:absolute;left:192px;top:78px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">1</div>
+    <div style="position:absolute;left:332px;top:190px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">2</div>
+    <div style="position:absolute;left:426px;top:88px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">3</div>
+    <div style="position:absolute;left:571px;top:212px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">4</div>
+    <div style="position:absolute;left:150px;top:56px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#c0b6a5">CRACKED</div>
+    <div style="position:absolute;left:392px;top:66px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#8fa073">GATE</div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">Three chambers, left to right. The gate is the only route to the exit.</figcaption>
+</figure>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">Walkthrough</h3>
+<sc-if value="{{ showSolutions }}" hint-placeholder-val="{{ true }}">
+<ol style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4);padding-left:1.4em">
+  <li><b>1</b> &mdash; Stone walks into the cracked wall and breaks it. Wind cannot; the wall is the room's first statement of who opens geometry.</li>
+  <li><b>2</b> &mdash; Both cross into the middle chamber. Wind stands on the hold-switch. The gate rises only while weight is on it, and Wind is the one who can be spared.</li>
+  <li><b>3</b> &mdash; Stone passes through the open gate into the third chamber.</li>
+  <li><b>4</b> &mdash; Stone pushes the block onto the pressure plate. The plate latches the gate open permanently. Wind steps off the switch, crosses, and both take the exit.</li>
+</ol>
+</sc-if>
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-2-700);margin:0 0 var(--space-2)">Designer notes</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Why it holds.</b> The naive attempt is Stone on the switch and Wind through the gate &mdash; which fails, because Wind cannot move the block. The failure is instant, legible and costs four seconds, so players reason their way to the right assignment rather than guessing.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Failure states.</b> None fatal. No water, no void, no gust. The room is a safe teaching space; the only cost is walking back.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>Build note.</b> The hold-switch is a new state on the existing lever: <code style="font-family:'IBM Plex Mono',monospace;font-size:13px">lever.held</code> recomputed each frame from overlap rather than latched once. Keep the latched variant for Level 1's bridge.</p>
+  </sc-if>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-2);break-before:page">Level 3 &middot; Updraft Shaft</h2>
+<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0 0 var(--space-4)">
+  <span class="tag tag-accent">New: Updraft column</span>
+  <span class="tag tag-accent">New: Glide to ledge</span>
+  <span class="tag tag-neutral">Returns: Water, lever</span>
+</div>
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">The first room where Wind goes somewhere Stone cannot follow, and comes back with a path. Water is the wall; the updraft is the way over it, but only for one gnome.</p>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="position:relative;width:640px;max-width:100%;height:300px;background:#2e2b25;border:2px solid #474238;border-radius:var(--radius-md);overflow:hidden;box-sizing:border-box">
+    <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px);pointer-events:none"></div></sc-if>
+    <div style="position:absolute;left:0;top:250px;width:150px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:150px;top:250px;width:180px;height:50px;background:oklch(0.52 0.06 240);border-top:3px solid oklch(0.72 0.07 235);box-sizing:border-box"></div>
+    <div style="position:absolute;left:196px;top:112px;width:50px;height:138px;background:linear-gradient(to top,oklch(0.72 0.14 60 / .38),transparent);border:2px dashed #f6a06b;border-radius:6px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:200px;top:236px;width:42px;height:14px;background:#a19786;border-radius:3px"></div>
+    <div style="position:absolute;left:268px;top:96px;width:120px;height:16px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:320px;top:68px;width:24px;height:28px;background:#f6a06b;border-radius:999px 999px 3px 3px"></div>
+    <div style="position:absolute;left:160px;top:234px;width:34px;height:14px;background:#4a4438;border:2px dashed #8fa073;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:226px;top:234px;width:34px;height:14px;background:#4a4438;border:2px dashed #8fa073;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:292px;top:234px;width:34px;height:14px;background:#4a4438;border:2px dashed #8fa073;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:330px;top:250px;width:120px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:470px;top:180px;width:170px;height:120px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:580px;top:130px;width:34px;height:50px;background:#f5ead8;border-radius:5px 5px 0 0;box-shadow:0 0 18px rgba(245,234,216,.45)"></div>
+    <div style="position:absolute;left:20px;top:214px;width:26px;height:26px;border-radius:999px;background:#dcd3c4;color:#2e2b25;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">S</div>
+    <div style="position:absolute;left:54px;top:214px;width:26px;height:26px;border-radius:999px;background:#aebf92;color:#272e1b;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">W</div>
+    <div style="position:absolute;left:210px;top:76px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">1</div>
+    <div style="position:absolute;left:322px;top:38px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">2</div>
+    <div style="position:absolute;left:227px;top:198px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">3</div>
+    <div style="position:absolute;left:490px;top:196px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">4</div>
+    <div style="position:absolute;left:150px;top:276px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:oklch(0.82 0.05 235)">WATER &mdash; STONE SINKS</div>
+    <div style="position:absolute;left:396px;top:100px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#8fa073">LEDGE</div>
+    <div style="position:absolute;left:352px;top:214px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#c0b6a5">STEPPING STONES DROP HERE</div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">Dashed stones are absent until the ledge lever is thrown.</figcaption>
+</figure>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">Walkthrough</h3>
+<sc-if value="{{ showSolutions }}" hint-placeholder-val="{{ true }}">
+<ol style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4);padding-left:1.4em">
+  <li><b>1</b> &mdash; Wind jumps out over the pool and into the updraft column. The column carries it above the water; Stone entering the same column is shoved sideways into the pool, so the demonstration has to happen with Wind.</li>
+  <li><b>2</b> &mdash; Wind glides off the top of the column onto the high ledge and throws the lever.</li>
+  <li><b>3</b> &mdash; Three stepping stones drop into the pool. Stone crosses on them.</li>
+  <li><b>4</b> &mdash; Both climb the raised east ledge &mdash; Stone by jump, Wind by glide &mdash; and reach the exit.</li>
+</ol>
+</sc-if>
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-2-700);margin:0 0 var(--space-2)">Designer notes</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Tuning.</b> Column height must put Wind's apex a little above the ledge, not level with it, so the landing is forgiving. With the current jump and glide values that is roughly 130&ndash;140&nbsp;px of lift over a 50&nbsp;px-wide column.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Failure states.</b> Stone drowning is the one death here, and it should be easy to trigger early &mdash; the pool is wide and right next to the start. Losing Stone to the water in the first ten seconds is the fastest way to teach the rule.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>Softening.</b> If playtests stall, widen the east ledge's approach rather than lowering the column; players read a missed jump as their mistake and a missed updraft as the game's.</p>
+  </sc-if>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-2);break-before:page">Level 4 &middot; Brittle Causeway</h2>
+<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0 0 var(--space-4)">
+  <span class="tag tag-accent">New: Cracked floors</span>
+  <span class="tag tag-neutral">Returns: Timed platform, lever</span>
+</div>
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">The gnomes cross the same chasm by two different routes at the same time. Wind takes the high causeway that would collapse under Stone; Stone takes the platform Wind's lever set moving.</p>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="position:relative;width:640px;max-width:100%;height:300px;background:#2e2b25;border:2px solid #474238;border-radius:var(--radius-md);overflow:hidden;box-sizing:border-box">
+    <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px);pointer-events:none"></div></sc-if>
+    <div style="position:absolute;left:170px;top:250px;width:280px;height:50px;background:#141210"></div>
+    <div style="position:absolute;left:0;top:250px;width:170px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:170px;top:190px;width:280px;height:16px;background:repeating-linear-gradient(90deg,#645c50 0 14px,transparent 14px 18px);border-top:3px dashed #c0b6a5;box-sizing:border-box"></div>
+    <div style="position:absolute;left:176px;top:252px;width:268px;height:2px;border-top:2px dashed #d67f48"></div>
+    <div style="position:absolute;left:182px;top:246px;width:90px;height:18px;background:#d67f48;border-radius:3px"></div>
+    <div style="position:absolute;left:450px;top:250px;width:190px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:466px;top:222px;width:26px;height:28px;background:#f6a06b;border-radius:999px 999px 3px 3px"></div>
+    <div style="position:absolute;left:590px;top:200px;width:34px;height:50px;background:#f5ead8;border-radius:5px 5px 0 0;box-shadow:0 0 18px rgba(245,234,216,.45)"></div>
+    <div style="position:absolute;left:20px;top:214px;width:26px;height:26px;border-radius:999px;background:#dcd3c4;color:#2e2b25;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">S</div>
+    <div style="position:absolute;left:54px;top:214px;width:26px;height:26px;border-radius:999px;background:#aebf92;color:#272e1b;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">W</div>
+    <div style="position:absolute;left:230px;top:154px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">1</div>
+    <div style="position:absolute;left:468px;top:190px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">2</div>
+    <div style="position:absolute;left:298px;top:220px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">3</div>
+    <div style="position:absolute;left:600px;top:166px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">4</div>
+    <div style="position:absolute;left:262px;top:170px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#c0b6a5">BRITTLE CAUSEWAY</div>
+    <div style="position:absolute;left:326px;top:266px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#d67f48">PLATFORM CYCLE</div>
+    <div style="position:absolute;left:200px;top:276px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#82796a">VOID</div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">The causeway is intact for Wind and one step deep for Stone.</figcaption>
+</figure>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">Walkthrough</h3>
+<sc-if value="{{ showSolutions }}" hint-placeholder-val="{{ true }}">
+<ol style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4);padding-left:1.4em">
+  <li><b>1</b> &mdash; Wind double-jumps onto the brittle causeway and runs it. The slabs hold; a faint crack sound plays under each step so the material still reads as unsafe.</li>
+  <li><b>2</b> &mdash; Wind reaches the east floor and throws the lever. The timed platform starts its cycle across the chasm.</li>
+  <li><b>3</b> &mdash; Stone boards the platform at the west edge and rides across, stepping off before it reverses.</li>
+  <li><b>4</b> &mdash; Both reach the exit. Stone never touches the causeway; if it does, the slab it lands on falls away and Stone follows it into the void.</li>
+</ol>
+</sc-if>
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Teaching the material.</b> Put one brittle slab on the west floor, over a shallow one-tile pit, before the causeway. Stone breaks it, drops a body-height, climbs out unharmed. The lesson costs nothing there and everything on the causeway.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Timing.</b> Platform travel should be slow enough that Stone can miss a boarding and simply wait for the next pass. Nothing in this room should demand a frame-accurate step; the pressure is in coordination, not reflex.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>Respawn.</b> Broken slabs restore on reset. Do not let a player permanently strand themselves by breaking the causeway from underneath &mdash; there is no path back up from the void, so the void must reset the level rather than trap.</p>
+  </sc-if>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-2);break-before:page">Level 5 &middot; Crosswind Gallery</h2>
+<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0 0 var(--space-4)">
+  <span class="tag tag-accent">New: Gust as traversal</span>
+  <span class="tag tag-accent">New: Block as windbreak</span>
+  <span class="tag tag-neutral">Returns: Bridge lever, plate</span>
+</div>
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">The same gust is Wind's only way across and the reason Stone cannot cross. Blocking a fan is a one-way decision, so this is the first room where doing the right things in the wrong order forces a reset.</p>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="position:relative;width:640px;max-width:100%;height:300px;background:#2e2b25;border:2px solid #474238;border-radius:var(--radius-md);overflow:hidden;box-sizing:border-box">
+    <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px);pointer-events:none"></div></sc-if>
+    <div style="position:absolute;left:250px;top:250px;width:110px;height:50px;background:#141210"></div>
+    <div style="position:absolute;left:0;top:250px;width:250px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:360px;top:250px;width:280px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:250px;top:250px;width:110px;height:14px;background:#4a4438;border:2px dashed #8fa073;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:206px;top:170px;width:24px;height:44px;background:#a19786;border-radius:3px"></div>
+    <div style="position:absolute;left:230px;top:178px;width:140px;height:30px;background:linear-gradient(to right,oklch(0.72 0.14 60 / .45),transparent);border:2px dashed #f6a06b;border-radius:4px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:150px;top:222px;width:26px;height:28px;background:#f6a06b;border-radius:999px 999px 3px 3px"></div>
+    <div style="position:absolute;left:100px;top:210px;width:34px;height:40px;background:#82796a;border:2px solid #a19786;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:140px;top:190px;width:88px;height:2px;border-top:2px dashed #a19786"></div>
+    <div style="position:absolute;left:396px;top:210px;width:34px;height:40px;background:#82796a;border:2px solid #a19786;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:436px;top:228px;width:60px;height:2px;border-top:2px dashed #a19786"></div>
+    <div style="position:absolute;left:500px;top:244px;width:44px;height:6px;background:#f6a06b;border-radius:2px"></div>
+    <div style="position:absolute;left:470px;top:110px;width:24px;height:40px;background:#a19786;border-radius:3px"></div>
+    <div style="position:absolute;left:494px;top:116px;width:146px;height:26px;background:linear-gradient(to right,oklch(0.72 0.14 60 / .45),transparent);border:2px dashed #f6a06b;border-radius:4px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:540px;top:170px;width:100px;height:14px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:580px;top:120px;width:34px;height:50px;background:#f5ead8;border-radius:5px 5px 0 0;box-shadow:0 0 18px rgba(245,234,216,.45)"></div>
+    <div style="position:absolute;left:20px;top:214px;width:26px;height:26px;border-radius:999px;background:#dcd3c4;color:#2e2b25;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">S</div>
+    <div style="position:absolute;left:54px;top:214px;width:26px;height:26px;border-radius:999px;background:#aebf92;color:#272e1b;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">W</div>
+    <div style="position:absolute;left:280px;top:146px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">1</div>
+    <div style="position:absolute;left:152px;top:190px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">2</div>
+    <div style="position:absolute;left:230px;top:216px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">3</div>
+    <div style="position:absolute;left:508px;top:212px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">4</div>
+    <div style="position:absolute;left:246px;top:150px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#f6a06b">GUST 1</div>
+    <div style="position:absolute;left:396px;top:88px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#f6a06b">GUST 2 &mdash; OVER THE LEDGE</div>
+    <div style="position:absolute;left:262px;top:272px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#8fa073">LEVER BRIDGE</div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">Two fans, two blocks. One block plugs a fan mouth; the other switches a fan off from a plate.</figcaption>
+</figure>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">Walkthrough</h3>
+<sc-if value="{{ showSolutions }}" hint-placeholder-val="{{ true }}">
+<ol style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4);padding-left:1.4em">
+  <li><b>1</b> &mdash; Wind goes first. It jumps into gust 1 and is carried over the chasm to the east floor. This must happen before anything else is touched.</li>
+  <li><b>2</b> &mdash; Stone throws the lever, raising the bridge over the chasm &mdash; but gust 1 blows Stone off it. Stone pushes the west block into the fan's mouth, killing the airflow.</li>
+  <li><b>3</b> &mdash; With the gust dead, Stone walks the bridge across.</li>
+  <li><b>4</b> &mdash; Wind cannot stand on the exit ledge while gust 2 blows across it. Stone pushes the east block onto the plate, gust 2 stops, and both take the exit.</li>
+</ol>
+</sc-if>
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-8);break-inside:avoid">
+  <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>The trap, on purpose.</b> A player who plugs gust 1 before Wind has crossed strands Wind on the west side with no route. That is the intended lesson of the room, and it needs to be recoverable in one keystroke &mdash; R resets instantly, and the reset message should name the cause: <i>&ldquo;Wind Gnome has no way across.&rdquo;</i></p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Read the wind.</b> Both gusts need constant particle flow, even while inert, so a plugged fan is visibly plugged rather than ambiguously broken. Gust 2 keeps a stub of particles behind the block.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>Cut if it drags.</b> If the room tests long, drop the second block and plate and let gust 2 pulse on Level 1's on/off cycle instead &mdash; Wind then simply times its arrival. Keeps the beat, halves the solve.</p>
+  </sc-if>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:34px;margin:0 0 var(--space-2);break-before:page">Level 6 &middot; The Two Doors</h2>
+<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0 0 var(--space-4)">
+  <span class="tag tag-accent-2">Finale</span>
+  <span class="tag tag-neutral">Returns: Everything</span>
+</div>
+<p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">A pillar splits the room, and each gnome starts on the wrong side of it. Two exits, one per gnome, and they only count when both are occupied at once &mdash; so the room ends with the gnomes further apart than they have ever been.</p>
+
+<figure style="margin:0 0 var(--space-4);break-inside:avoid">
+  <div style="position:relative;width:640px;max-width:100%;height:300px;background:#2e2b25;border:2px solid #474238;border-radius:var(--radius-md);overflow:hidden;box-sizing:border-box">
+    <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px),repeating-linear-gradient(0deg,rgba(220,211,196,.07) 0 1px,transparent 1px 32px);pointer-events:none"></div></sc-if>
+    <div style="position:absolute;left:0;top:250px;width:120px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:120px;top:250px;width:120px;height:50px;background:oklch(0.52 0.06 240);border-top:3px solid oklch(0.72 0.07 235);box-sizing:border-box"></div>
+    <div style="position:absolute;left:240px;top:250px;width:70px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:90px;top:190px;width:56px;height:14px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:150px;top:140px;width:100px;height:14px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:40px;top:200px;width:34px;height:50px;background:#f5ead8;border-radius:5px 5px 0 0;box-shadow:0 0 18px rgba(245,234,216,.45)"></div>
+    <div style="position:absolute;left:310px;top:0;width:24px;height:110px;background:#4a4438"></div>
+    <div style="position:absolute;left:310px;top:150px;width:24px;height:100px;background:#4a4438"></div>
+    <div style="position:absolute;left:306px;top:110px;width:32px;height:40px;border:2px dashed #aebf92;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:334px;top:250px;width:306px;height:50px;background:#645c50;border-top:5px solid #8fa073;box-sizing:border-box"></div>
+    <div style="position:absolute;left:430px;top:110px;width:26px;height:140px;background:#4a4438;border:2px dashed #c0b6a5;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:470px;top:190px;width:110px;height:16px;background:repeating-linear-gradient(90deg,#645c50 0 14px,transparent 14px 18px);border-top:3px dashed #c0b6a5;box-sizing:border-box"></div>
+    <div style="position:absolute;left:596px;top:200px;width:34px;height:50px;background:#f5ead8;border-radius:5px 5px 0 0;box-shadow:0 0 18px rgba(245,234,216,.45)"></div>
+    <div style="position:absolute;left:250px;top:262px;width:186px;height:26px;background:#141210;border:2px dashed #82796a;border-radius:3px;box-sizing:border-box"></div>
+    <div style="position:absolute;left:466px;top:214px;width:26px;height:26px;border-radius:999px;background:#dcd3c4;color:#2e2b25;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">S</div>
+    <div style="position:absolute;left:88px;top:214px;width:26px;height:26px;border-radius:999px;background:#aebf92;color:#272e1b;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">W</div>
+    <div style="position:absolute;left:436px;top:78px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">1</div>
+    <div style="position:absolute;left:334px;top:266px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">2</div>
+    <div style="position:absolute;left:196px;top:112px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">3</div>
+    <div style="position:absolute;left:512px;top:158px;width:22px;height:22px;border-radius:999px;background:#f5ead8;color:#201e1d;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center">4</div>
+    <div style="position:absolute;left:344px;top:92px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#aebf92">WIND ONLY</div>
+    <div style="position:absolute;left:258px;top:268px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:#a19786">TUNNEL</div>
+    <div style="position:absolute;left:120px;top:276px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:oklch(0.82 0.05 235)">WATER</div>
+  </div>
+  <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin-top:var(--space-2)">Stone starts east, Wind starts west, and each door is on the other's side.</figcaption>
+</figure>
+
+<h3 style="font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 var(--space-2)">Walkthrough</h3>
+<sc-if value="{{ showSolutions }}" hint-placeholder-val="{{ true }}">
+<ol style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4);padding-left:1.4em">
+  <li><b>1</b> &mdash; Stone, on the east side, breaks the cracked wall. Behind it is the mouth of the tunnel that runs under the pillar.</li>
+  <li><b>2</b> &mdash; Stone takes the tunnel west and climbs the shaft onto the west floor, on the far side of the water.</li>
+  <li><b>3</b> &mdash; Wind climbs the west ledges over the water and glides through the pillar window to the east side, then crosses the brittle causeway.</li>
+  <li><b>4</b> &mdash; Stone stands in the west door, Wind stands in the east door. Both must be occupied on the same frame; either gnome leaving its door cancels the sequence.</li>
+</ol>
+</sc-if>
+<div style="background:var(--color-accent-2-100);border-radius:var(--radius-md);padding:var(--space-4);margin:0 0 var(--space-6);break-inside:avoid">
+  <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ true }}">
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>The swap.</b> Nothing new is taught. The difficulty comes entirely from the starting positions: each gnome begins in the half designed against it, so the first thirty seconds are spent reading the room rather than moving through it.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Two doors, one condition.</b> The paired-exit check replaces the shared exit pad from Levels 1&ndash;5. Both doors light and hum while occupied so a waiting player can see their partner is not yet in place.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0 0 var(--space-2)"><b>Sightlines.</b> The pillar must not hide either gnome. Keep it narrow, and if the window and the tunnel both sit behind it, thin it to a colonnade rather than a solid slab &mdash; players need to watch each other work.</p>
+  <p style="font-size:14px;line-height:1.55;margin:0"><b>Open question.</b> The tunnel's west shaft is unresolved: a climbable shaft, a one-way updraft, or a second cracked wall. A shaft is simplest but gives Stone a vertical move it has nowhere else.</p>
+  </sc-if>
+</div>
+
+<h2 style="font-family:var(--font-heading);font-weight:400;font-size:28px;margin:0 0 var(--space-3);break-before:page">Open questions</h2>
+<ul style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-6);padding-left:1.4em">
+  <li>Does Level 1 get trimmed as recommended, or do 2&ndash;6 assume it stays as built?</li>
+  <li>Shared exit pad or paired doors as the standard? Level 6 needs paired doors; if that becomes the rule, Levels 2&ndash;5 should be rebuilt around it for consistency.</li>
+  <li>Is a per-room reset acceptable as the punishment for wrong ordering, or does Level 5 need an undo &mdash; a block a gnome can pull as well as push?</li>
+  <li>Tile size. Every blueprint here is drawn on a 32&nbsp;px grid; the existing level uses free-floating rectangles. Committing to tiles now makes the art pipeline much simpler later.</li>
+</ul>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSolutions&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Document&quot;},&quot;showNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Document&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Blueprints&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showSolutions: this.props.showSolutions ?? true,
+      showNotes: this.props.showNotes ?? true,
+      showGrid: this.props.showGrid ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>

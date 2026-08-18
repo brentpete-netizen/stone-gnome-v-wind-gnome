@@ -1,0 +1,90 @@
+{
+  "_note": "18 colours, locked. No sprite, tile or effect may introduce a nineteenth.",
+  "ink": {
+    "void": "#14131f",
+    "body": "#1f1e2e",
+    "facet": "#2e2c42",
+    "detail": "#45415d"
+  },
+  "haze": {
+    "light": "#f2e7d3",
+    "near": "#e2d3ba",
+    "far": "#c9b79b",
+    "recess": "#a8967d"
+  },
+  "signal": {
+    "water": [
+      "#8fd9e4",
+      "#4fb0c6"
+    ],
+    "gust": [
+      "#efe6ff",
+      "#cdbcff"
+    ],
+    "interactive": [
+      "#ffe6a3",
+      "#f0b64e"
+    ],
+    "stoneGnome": [
+      "#f5c99b",
+      "#d98c53"
+    ],
+    "windGnome": [
+      "#dffff0",
+      "#7fe0b0"
+    ]
+  },
+  "hazePerRoom": {
+    "1": [
+      "#f2e7d3",
+      "#e2d3ba",
+      "#c9b79b",
+      "#a8967d"
+    ],
+    "2": [
+      "#eae4d8",
+      "#d5cfc3",
+      "#b8b2a6",
+      "#96918a"
+    ],
+    "3": [
+      "#e6f0e8",
+      "#cfe0dc",
+      "#b0c6c4",
+      "#8fa5a6"
+    ],
+    "4": [
+      "#f0e2de",
+      "#ddc7c6",
+      "#c0a7aa",
+      "#9c868c"
+    ],
+    "5": [
+      "#fbeecb",
+      "#efdaa8",
+      "#d7bd85",
+      "#b39c69"
+    ],
+    "6": [
+      "#3a3b57",
+      "#2c2d44",
+      "#212236",
+      "#181927"
+    ]
+  },
+  "grid": {
+    "tile": 24,
+    "roomTiles": [
+      20,
+      12
+    ],
+    "buffer": [
+      480,
+      288
+    ],
+    "scale": [
+      2,
+      3
+    ]
+  }
+}

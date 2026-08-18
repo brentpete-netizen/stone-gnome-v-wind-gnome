@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;600;800&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+<link rel="stylesheet" href="_ds/organic-85d3ca47-4f9c-4c87-a835-06869284609f/styles.css" />
+<script src="_ds/organic-85d3ca47-4f9c-4c87-a835-06869284609f/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); }
+  a { color: var(--color-accent-700); }
+  a:hover { color: var(--color-accent-600); }
+  canvas { image-rendering: pixelated; display: block; }
+</style>
+</helmet>
+
+<div style="max-width:1100px;margin:0 auto;padding:var(--space-8) var(--space-6) 120px">
+
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 var(--space-2)">Sprite sheets &middot; Pass 1</p>
+
+  <h1 style="font-family:var(--font-heading);font-weight:400;font-size:46px;line-height:1.02;margin:0 0 var(--space-4);max-width:16em">Eleven sheets, hand-placed, on the locked palette</h1>
+
+  <p style="font-size:16px;line-height:1.6;max-width:34em;margin:0 0 var(--space-4)">Every pixel here was placed by hand as palette data. The sheets export as 1&times; PNGs at the exact dimensions the art bible specifies, so they drop straight into the build. They are programmer art: correct in silhouette, palette, frame count and timing, and plainer than a pixel artist would leave them. Treat them as a working first pass that proves the read, not as final art.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin:0 0 var(--space-6)">
+    <button class="btn btn-primary" onClick="{{ downloadAll }}" style="border-radius:999px;white-space:nowrap">Download all sheets as PNG</button>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-neutral-600)">{{ statusText }}</span>
+  </div>
+
+  <div style="background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-6);margin:0 0 var(--space-8)">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-700);margin:0 0 var(--space-4)">Live, on the room haze &mdash; this is the only test that matters</p>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-end">
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <canvas data-preview="stone-walk" width="200" height="260" style="border-radius:var(--radius-sm)"></canvas>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-700)">Stone walk, 10&nbsp;fps</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <canvas data-preview="wind-walk" width="180" height="260" style="border-radius:var(--radius-sm)"></canvas>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-700)">Wind walk, 12&nbsp;fps</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <canvas data-preview="wind-blown" width="180" height="260" style="border-radius:var(--radius-sm)"></canvas>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-700)">Wind blown, 12&nbsp;fps</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <canvas data-preview="stone-push" width="200" height="260" style="border-radius:var(--radius-sm)"></canvas>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-700)">Stone push, 8&nbsp;fps</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <canvas data-preview="exit-door" width="120" height="240" style="border-radius:var(--radius-sm)"></canvas>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-700)">Exit door, 4&nbsp;fps</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <canvas data-preview="water-surface" width="240" height="120" style="border-radius:var(--radius-sm)"></canvas>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-700)">Water, 6&nbsp;fps, tiled</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="font-family:var(--font-heading);font-weight:400;font-size:28px;margin:0 0 var(--space-4)">The sheets</h2>
+
+  <sc-for list="{{ sheets }}" as="sheet" hint-placeholder-count="11">
+    <div style="background:var(--color-neutral-100);border-radius:var(--radius-lg);padding:var(--space-6);margin:0 0 var(--space-4)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--space-4);align-items:baseline;justify-content:space-between;margin:0 0 var(--space-3)">
+        <div>
+          <h3 style="font-family:var(--font-body);font-weight:800;font-size:17px;margin:0 0 4px">{{ sheet.name }}</h3>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-neutral-600);margin:0">{{ sheet.spec }}</p>
+        </div>
+        <button class="btn btn-secondary" data-sheet="{{ sheet.id }}" onClick="{{ downloadOne }}" style="border-radius:999px">Download PNG</button>
+      </div>
+      <p style="font-size:14px;line-height:1.55;max-width:40em;margin:0 0 var(--space-4);color:var(--color-neutral-800)">{{ sheet.note }}</p>
+      <div style="background:#c9b79b;border-radius:var(--radius-sm);padding:var(--space-4);overflow-x:auto">
+        <canvas data-sheet-canvas="{{ sheet.id }}"></canvas>
+      </div>
+    </div>
+  </sc-for>
+
+  <h2 style="font-family:var(--font-heading);font-weight:400;font-size:28px;margin:var(--space-8) 0 var(--space-3)">Where these fall short</h2>
+  <ul style="font-size:15px;line-height:1.6;max-width:34em;margin:0 0 var(--space-6);padding-left:1.4em">
+    <li>No anti-aliased inner shading. A pixel artist would add a third value inside each gnome's body; the palette allows exactly two plus the ink outline, so the forms read flat by design. If that turns out too flat in motion, the fix is one extra ramp step per gnome &mdash; a palette change, not a redraw.</li>
+    <li>The faces are two pixels of eye. At 20&times;26 that is honest, but expression will need a pass once the animation timing is locked.</li>
+    <li>Stone's push cycle reuses the walk legs. It works, but a real push has both feet planted and a shoulder drive; that is a hand pass, not a composition.</li>
+    <li>No sink, break, jump, glide or gate frames yet. Those were not in this round's priority list.</li>
+  </ul>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1160,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { sheets: [], status: "Loading sprite data…" };
+
+  async componentDidMount() {
+    const mod = await import("./sprites.js");
+    this.mod = mod;
+    const errors = mod.validate();
+    if (errors.length) {
+      console.error("Sprite validation failed:\n" + errors.join("\n"));
+      this.setState({ status: errors.length + " grid error(s) — see console" });
+    } else {
+      this.setState({ status: "11 sheets, 36 frames, 18 colours" });
+    }
+    this.setState({
+      sheets: mod.SHEETS.map((s) => ({
+        id: s.id,
+        name: s.name,
+        note: s.note,
+        spec: s.w + " × " + s.h + " px · " + s.frames.length + " frame" + (s.frames.length > 1 ? "s" : "") + " · " + s.fps + " fps",
+      })),
+    });
+    requestAnimationFrame(() => {
+      this.paintSheets();
+      this.loop(0);
+    });
+  }
+
+  componentDidUpdate() {
+    this.paintSheets();
+  }
+
+  componentWillUnmount() {
+    if (this.raf) cancelAnimationFrame(this.raf);
+  }
+
+  sheetById(id) {
+    return this.mod.SHEETS.find((s) => s.id === id);
+  }
+
+  paintSheets() {
+    if (!this.mod) return;
+    const scale = 4;
+    const pad = 8;
+    for (const el of document.querySelectorAll("canvas[data-sheet-canvas]")) {
+      const sheet = this.sheetById(el.dataset.sheetCanvas);
+      if (!sheet) continue;
+      const labelH = 16;
+      const wantW = sheet.frames.length * (sheet.w * scale + pad) + pad;
+      if (el.width === wantW && el.dataset.painted === "1") continue;
+      el.dataset.painted = "1";
+      el.width = wantW;
+      el.height = sheet.h * scale + pad * 2 + labelH;
+      const ctx = el.getContext("2d");
+      ctx.imageSmoothingEnabled = false;
+      ctx.clearRect(0, 0, el.width, el.height);
+      sheet.frames.forEach((f, i) => {
+        const x = pad + i * (sheet.w * scale + pad);
+        ctx.fillStyle = "rgba(20,19,31,0.10)";
+        ctx.fillRect(x, pad, sheet.w * scale, sheet.h * scale);
+        this.mod.drawFrame(ctx, sheet, i, x, pad, scale);
+        ctx.fillStyle = "#1f1e2e";
+        ctx.font = "500 10px 'IBM Plex Mono', monospace";
+        ctx.fillText((sheet.labels && sheet.labels[i]) || String(i), x, sheet.h * scale + pad + 13);
+      });
+    }
+  }
+
+  loop(t) {
+    // Sheet canvases are sc-for children, so they can attach after mount. Repainting from
+    // the loop (guarded, so it only ever paints each canvas once) means a canvas that
+    // appears late still gets drawn.
+    this.paintSheets();
+    const scale = 6;
+    for (const el of document.querySelectorAll("canvas[data-preview]")) {
+      const sheet = this.sheetById(el.dataset.preview);
+      if (!sheet) continue;
+      const ctx = el.getContext("2d");
+      ctx.imageSmoothingEnabled = false;
+      ctx.fillStyle = "#c9b79b";
+      ctx.fillRect(0, 0, el.width, el.height);
+      ctx.fillStyle = "#e2d3ba";
+      ctx.fillRect(0, 0, el.width, Math.round(el.height * 0.45));
+      const i = Math.floor((t / 1000) * sheet.fps) % sheet.frames.length;
+      if (sheet.id === "water-surface") {
+        for (let tx = 0; tx < Math.ceil(el.width / (sheet.w * scale / 2)); tx++) {
+          this.mod.drawFrame(ctx, sheet, i, tx * sheet.w * (scale / 2), el.height - sheet.h * (scale / 2), scale / 2);
+        }
+      } else {
+        const x = Math.round((el.width - sheet.w * scale) / 2);
+        const y = el.height - sheet.h * scale - 6;
+        ctx.fillStyle = "rgba(20,19,31,0.4)";
+        ctx.fillRect(x + scale * 3, el.height - 6, sheet.w * scale - scale * 6, 2);
+        ctx.fillStyle = "#1f1e2e";
+        ctx.fillRect(0, el.height - 4, el.width, 4);
+        this.mod.drawFrame(ctx, sheet, i, x, y, scale);
+      }
+    }
+    this.raf = requestAnimationFrame((n) => this.loop(n));
+  }
+
+  exportSheet(sheet) {
+    const c = document.createElement("canvas");
+    c.width = sheet.w * sheet.frames.length;
+    c.height = sheet.h;
+    const ctx = c.getContext("2d");
+    sheet.frames.forEach((f, i) => this.mod.drawFrame(ctx, sheet, i, i * sheet.w, 0, 1));
+    return c;
+  }
+
+  save(sheet) {
+    const c = this.exportSheet(sheet);
+    c.toBlob((blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = sheet.id + "_" + sheet.w + "x" + sheet.h + "_" + sheet.frames.length + "f.png";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    }, "image/png");
+  }
+
+  renderVals() {
+    return {
+      sheets: this.state.sheets,
+      statusText: this.state.status,
+      downloadOne: (e) => {
+        const s = this.sheetById(e.currentTarget.dataset.sheet);
+        if (s) this.save(s);
+      },
+      downloadAll: () => {
+        this.mod.SHEETS.forEach((s, i) => setTimeout(() => this.save(s), i * 350));
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

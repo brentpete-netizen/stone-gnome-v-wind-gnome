@@ -501,9 +501,15 @@ function buildRoom(def) {
   }
 
   levelComplete = false;
+  solving = false;
+  solveFrames = 0;
   message = '';
   messageTimer = 0;
   particles = [];
+  debris = [];
+  rings = [];
+  glowPulses = [];
+  screenDimFrames = 0;
 }
 
 function loadRoom(id) {
@@ -586,6 +592,8 @@ class Player {
     this.animFrame = 0;
     this.animTime = 0;
     this.standingOn = null;
+    this.sinking = false;
+    this.sinkFrames = 0;
   }
 
   get maxJumps() {
@@ -671,6 +679,14 @@ class Player {
     // the 24px tile leaves only 2px of clearance over a 22px hitbox, so overlap alone can't
     // distinguish "walking safely underneath" from "actually submerged"; solid support can).
     if (this.kind === 'stone' && !this.standingOn && rectsOverlap(this.hitbox(), this.expandedWaterCheck()) && !this.standingOnBridge()) {
+      if (!this.dead) {
+        // "Cyan splash ring, sprite sinks 12px over 8 frames, screen dims 15% for 6 frames.
+        // No sting, no jingle — the room should feel quiet after."
+        spawnRing(this.x + this.w / 2, this.y + this.h, PALETTE.signal.water[0], 14);
+        triggerScreenDim();
+        this.sinking = true;
+        this.sinkFrames = 8;
+      }
       this.die('Stone Gnome sank in the water!');
     }
 
@@ -797,8 +813,20 @@ class Player {
   draw() {
     const sheet = getSpriteSheet(this.animId) || getSpriteSheet(this.kind === 'stone' ? 'stone-idle' : 'wind-idle');
     if (!sheet) return;
+
+    // "Sprite sinks 12px over 8 frames" once Stone drowns.
+    let sinkOffset = 0;
+    if (this.sinking) {
+      sinkOffset = (1 - Math.max(0, this.sinkFrames) / 8) * 12;
+      if (this.sinkFrames > 0) this.sinkFrames--;
+    }
+    // "Silhouettes lift toward the haze for 30 frames" once both gnomes are in — a slow
+    // rise and fade shared by both players while the room-cleared transition is pending.
+    let liftOffset = 0;
+    if (solving) liftOffset = -(1 - Math.max(0, solveFrames) / 30) * 40;
+
     const cx = Math.round(this.x + this.w / 2);
-    const bottom = Math.round(this.y + this.h);
+    const bottom = Math.round(this.y + this.h + sinkOffset + liftOffset);
     const drawX = cx - sheet.w / 2;
     const drawY = bottom - sheet.h;
 
@@ -807,6 +835,15 @@ class Player {
     bctx.fillRect(Math.round(cx - sheet.w / 3), bottom - 1, Math.round((sheet.w * 2) / 3), 2);
 
     bctx.save();
+    if (this.sinking) bctx.globalAlpha = Math.max(0, this.sinkFrames / 8);
+    else if (solving) bctx.globalAlpha = Math.max(0, solveFrames / 30);
+    // "Wind's sprite tilts 8deg downwind" while a gust is pushing it around.
+    const tilt = this.blown ? ((8 * Math.PI) / 180) * -this.facing : 0;
+    if (tilt) {
+      bctx.translate(cx, bottom - sheet.h / 2);
+      bctx.rotate(tilt);
+      bctx.translate(-cx, -(bottom - sheet.h / 2));
+    }
     if (this.facing < 0) {
       bctx.translate(cx, 0);
       bctx.scale(-1, 1);
@@ -898,8 +935,8 @@ function resumeGame() {
 
 function restartCurrentRoom() {
   roomResetCount++;
-  loadRoom(currentRoomId);
   gameState = 'playing';
+  triggerWipe(() => loadRoom(currentRoomId));
 }
 
 function onRoomCleared() {
@@ -947,6 +984,101 @@ function updateDebris() {
 }
 
 // ============================================================================
+// Feedback effects — the on-screen half of the design doc's feedback table.
+// Audio is deferred (per project decision); these are the visual cues only.
+// ============================================================================
+
+// A brief expanding ring, reused for "lever thrown" (gold) and "Stone drowns" (cyan).
+let rings = [];
+function spawnRing(x, y, color, life) {
+  rings.push({ x, y, color, life: life || 12, maxLife: life || 12 });
+}
+function updateRings() {
+  for (const r of rings) r.life--;
+  rings = rings.filter((r) => r.life > 0);
+}
+function drawRings() {
+  for (const r of rings) {
+    const t = 1 - r.life / r.maxLife;
+    bctx.globalAlpha = 1 - t;
+    bctx.strokeStyle = r.color;
+    bctx.lineWidth = 2;
+    bctx.beginPath();
+    bctx.arc(r.x, r.y, 3 + t * 16, 0, Math.PI * 2);
+    bctx.stroke();
+  }
+  bctx.globalAlpha = 1;
+}
+
+// A fading gold rectangle, reused for "plate pressed" (floods 8px along the floor either
+// side) and the room-solved gold flood from both exits.
+let glowPulses = [];
+function spawnGlow(x, y, w, h, color, life) {
+  glowPulses.push({ x, y, w, h, color, life: life || 14, maxLife: life || 14 });
+}
+function updateGlowPulses() {
+  for (const g of glowPulses) g.life--;
+  glowPulses = glowPulses.filter((g) => g.life > 0);
+}
+function drawGlowPulses() {
+  for (const g of glowPulses) {
+    bctx.globalAlpha = (g.life / g.maxLife) * 0.8;
+    bctx.fillStyle = g.color;
+    bctx.fillRect(g.x, g.y, g.w, g.h);
+  }
+  bctx.globalAlpha = 1;
+}
+
+// A short brightness boost on a mechanism (bridge, stepping stones, platform) — "the
+// connected mechanism flashes its light step once" when its lever is thrown.
+function triggerMechanismFlash(obj) {
+  if (obj) obj.flashFrames = 10;
+}
+function decayFlash(obj) {
+  if (obj && obj.flashFrames > 0) obj.flashFrames--;
+}
+
+// Screen dim on Stone drowning: "screen dims 15% for 6 frames".
+let screenDimFrames = 0;
+function triggerScreenDim() {
+  screenDimFrames = 6;
+}
+function updateScreenDim() {
+  if (screenDimFrames > 0) screenDimFrames--;
+}
+function drawScreenDim() {
+  if (screenDimFrames <= 0) return;
+  bctx.fillStyle = 'rgba(20, 19, 31, 0.15)';
+  bctx.fillRect(0, 0, BUFFER_W, BUFFER_H);
+}
+
+// Reset wipe: "wipe from both screen edges inward over 10 frames. Never a fade." Ink bars
+// close from the sides, the room resets underneath at the midpoint, bars open back out.
+let wipe = { active: false, frame: 0, total: 10, mid: 5, callback: null, fired: false };
+function triggerWipe(callback) {
+  wipe = { active: true, frame: 0, total: 10, mid: 5, callback, fired: false };
+}
+function updateWipe() {
+  if (!wipe.active) return;
+  wipe.frame++;
+  if (!wipe.fired && wipe.frame >= wipe.mid) {
+    wipe.fired = true;
+    if (wipe.callback) wipe.callback();
+  }
+  if (wipe.frame >= wipe.total) wipe.active = false;
+}
+function drawWipe() {
+  if (!wipe.active) return;
+  const progress = wipe.frame <= wipe.mid
+    ? wipe.frame / wipe.mid
+    : 1 - (wipe.frame - wipe.mid) / (wipe.total - wipe.mid);
+  const barW = (BUFFER_W / 2) * progress;
+  bctx.fillStyle = PALETTE.ink.void;
+  bctx.fillRect(0, 0, barW, BUFFER_H);
+  bctx.fillRect(BUFFER_W - barW, 0, barW, BUFFER_H);
+}
+
+// ============================================================================
 // Element updates
 // ============================================================================
 function updateLevers() {
@@ -955,14 +1087,17 @@ function updateLevers() {
     for (const p of players) {
       if (rectsOverlap(p.hitbox(), lv)) {
         lv.activated = true;
+        spawnRing(lv.x + lv.w / 2, lv.y + lv.h / 2, PALETTE.signal.interactive[0], 10);
         if (lv.raises === 'bridge') {
-          for (const b of bridges) b.active = true;
+          for (const b of bridges) { b.active = true; triggerMechanismFlash(b); }
           message = 'Bridge raised!';
         } else if (lv.spawns === 'steppingStones' && lv.stoneGroup) {
           lv.stoneGroup.active = true;
+          triggerMechanismFlash(lv.stoneGroup);
           message = 'Stepping stones dropped!';
         } else if (lv.starts === 'timedPlatform' && lv.platform) {
           lv.platform.running = true;
+          triggerMechanismFlash(lv.platform);
           message = 'Platform moving!';
         }
         messageTimer = 90;
@@ -985,8 +1120,12 @@ function updatePlates() {
     if (pl.pressed) continue;
     if (pushBlocks.some((b) => rectsOverlap(b, pl))) {
       pl.pressed = true;
+      // "Plate pressed: gold floods 8px along the floor either side."
+      spawnGlow(pl.x - 8, pl.y, 8, pl.h, PALETTE.signal.interactive[0], 14);
+      spawnGlow(pl.x + pl.w, pl.y, 8, pl.h, PALETTE.signal.interactive[0], 14);
       if (pl.gate) {
         pl.gate.latched = true;
+        triggerMechanismFlash(pl.gate);
         message = 'Gate latched open!';
         messageTimer = 90;
       }
@@ -1102,6 +1241,25 @@ function updateExit() {
     : players.every((p) => exits.some((ex) => rectsOverlap(p.hitbox(), ex)));
   if (bothIn && !levelComplete) {
     levelComplete = true;
+    // "Gold floods outward from both doors, silhouettes lift toward the haze for 30 frames."
+    // The state transition to the cleared screen itself is deferred until that plays out —
+    // see updateSolving().
+    solving = true;
+    solveFrames = 30;
+    for (const ex of exits) {
+      spawnGlow(ex.x - 10, ex.y, 10, ex.h, PALETTE.signal.interactive[0], 24);
+      spawnGlow(ex.x + ex.w, ex.y, 10, ex.h, PALETTE.signal.interactive[0], 24);
+    }
+  }
+}
+
+let solving = false;
+let solveFrames = 0;
+function updateSolving() {
+  if (!solving) return;
+  solveFrames--;
+  if (solveFrames <= 0) {
+    solving = false;
     onRoomCleared();
   }
 }
@@ -1153,12 +1311,24 @@ function drawBrittleFloors() {
   }
 }
 
+// "The connected mechanism flashes its light step once" when its lever is thrown — a brief
+// pale overlay on top of whatever the mechanism normally looks like, then it decays.
+function drawFlashOverlay(obj, x, y, w, h) {
+  if (!obj || !(obj.flashFrames > 0)) return;
+  bctx.globalAlpha = (obj.flashFrames / 10) * 0.6;
+  bctx.fillStyle = PALETTE.haze.light;
+  bctx.fillRect(x, y, w, h);
+  bctx.globalAlpha = 1;
+  decayFlash(obj);
+}
+
 function drawTimedPlatforms() {
   for (const tp of timedPlatforms) {
     bctx.fillStyle = PALETTE.ink.body;
     bctx.fillRect(tp.x, tp.y, tp.w, tp.h);
     bctx.fillStyle = PALETTE.signal.interactive[1];
     bctx.fillRect(tp.x, tp.y + tp.h - 2, tp.w, 2);
+    drawFlashOverlay(tp, tp.x, tp.y, tp.w, tp.h);
   }
 }
 
@@ -1199,6 +1369,7 @@ function drawBridges() {
     bctx.fillRect(b.x, b.y, b.w, b.h);
     bctx.fillStyle = PALETTE.signal.interactive[0];
     bctx.fillRect(b.x, b.y, b.w, 2);
+    drawFlashOverlay(b, b.x, b.y, b.w, b.h);
   }
 }
 
@@ -1231,7 +1402,9 @@ function drawBreakableWalls() {
 
 function drawGates() {
   for (const g of gates) {
-    if (gateIsOpen(g)) continue;
+    // Still flash even on the frame it opens, so "latched open" reads as an event, not a
+    // silent disappearance.
+    if (gateIsOpen(g)) { decayFlash(g); continue; }
     bctx.fillStyle = PALETTE.ink.body;
     for (let bx = g.x + 2; bx < g.x + g.w - 1; bx += 6) {
       bctx.fillRect(bx, g.y, 3, g.h);
@@ -1239,6 +1412,7 @@ function drawGates() {
     bctx.fillStyle = PALETTE.signal.interactive[1];
     bctx.fillRect(g.x, g.y, g.w, 3);
     bctx.fillRect(g.x, g.y + g.h - 3, g.w, 3);
+    drawFlashOverlay(g, g.x, g.y, g.w, g.h);
   }
 }
 
@@ -1332,16 +1506,28 @@ function drawSteppingStones() {
       bctx.fillRect(s.x, s.y, s.w, s.h);
       bctx.fillStyle = PALETTE.signal.interactive[0];
       bctx.fillRect(s.x, s.y, s.w, 2);
+      if (grp.flashFrames > 0) {
+        bctx.globalAlpha = (grp.flashFrames / 10) * 0.6;
+        bctx.fillStyle = PALETTE.haze.light;
+        bctx.fillRect(s.x, s.y, s.w, s.h);
+        bctx.globalAlpha = 1;
+      }
     }
+    decayFlash(grp);
   }
 }
 
 function drawExits() {
   const sheet = getSpriteSheet('exit-door');
   if (!sheet) return;
-  const occupied = players.some((p) => exits.some((ex) => rectsOverlap(p.hitbox(), ex)));
-  const frameIdx = occupied ? 2 : Math.floor(performance.now() / (1000 / sheet.fps)) % sheet.frames.length;
+  const idleFrame = Math.floor(performance.now() / (1000 / sheet.fps)) % sheet.frames.length;
   for (const ex of exits) {
+    // Paired doors (room 6) go steady only for their own owner; a shared pad goes steady
+    // for anyone. "Door glow goes steady" per gnome-in-position, not globally.
+    const occupied = ex.who
+      ? players.some((p) => p.kind === ex.who && rectsOverlap(p.hitbox(), ex))
+      : players.some((p) => rectsOverlap(p.hitbox(), ex));
+    const frameIdx = occupied ? 2 : idleFrame;
     const drawX = ex.x + (ex.w - sheet.w) / 2;
     const drawY = ex.y + ex.h - sheet.h;
     drawSpriteFrame(bctx, sheet, frameIdx, Math.round(drawX), Math.round(drawY), 1);
@@ -1359,7 +1545,14 @@ function drawMessage() {
 }
 
 function updateGameplay(dt) {
-  if (levelComplete) return;
+  updateRings();
+  updateGlowPulses();
+  updateScreenDim();
+  updateWipe();
+  if (levelComplete) {
+    updateSolving();
+    return;
+  }
   updateLevers();
   updateHoldSwitches();
   updatePlates();
@@ -1390,13 +1583,17 @@ function drawGameplay() {
   drawHoldSwitches();
   drawPushBlocks();
   drawPlates();
+  drawGlowPulses();
   drawDebris();
+  drawRings();
   drawFansAndGusts();
   drawUpdrafts();
   drawExits();
   for (const p of players) p.draw();
   drawMessage();
   drawHud();
+  drawScreenDim();
+  drawWipe();
 }
 
 // ============================================================================
